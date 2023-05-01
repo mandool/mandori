@@ -154,7 +154,7 @@ li{
 .header_wrap{
     width: 1920px;
     background-color: #fff;
-    height: 1200px;
+    height: 600px;
 }
 
 
@@ -207,10 +207,10 @@ color: #2D2D2D;
 
 /*content*/
 
-.contents_wrap{
+#contents_wrap{
     width: 1920px;
     background-color: #ECECEC;
-    height: 1200px;
+    height: 4300px;
 }
 
 
@@ -251,4 +251,34 @@ color: #2D2D2D;
 .Content_02 {
     width: 585px;
     height: 380px;
+}
+
+
+/*footer*/
+
+.footer_wrap{
+    width: 1920px;
+    background-color: #fff;
+    height: 200px;
+}
+
+
+.footer_container{
+    display: flex;
+    margin: 50px 360px;
+
+    flex-direction: row;
+    padding: 0px;
+
+
+    
+}
+
+
+.footer_container h1{
+    margin: 1% auto;
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
 }
