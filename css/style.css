@@ -210,7 +210,7 @@ color: #2D2D2D;
 #contents_wrap{
     width: 1920px;
     background-color: #ECECEC;
-    height: 4300px;
+    height: 4800px;
 }
 
 
@@ -265,7 +265,7 @@ color: #2D2D2D;
 
 .footer_container{
     display: flex;
-    margin: 50px 360px;
+    margin: 100px 360px;
 
     flex-direction: row;
     padding: 0px;
