@@ -112,6 +112,14 @@
   color-scheme: light only;
 }
 
+@media (prefers-color-scheme: dark) {
+  html,
+  body {
+    background: #fff !important;
+    background-color: #fff !important;
+  }
+}
+
 .wrap{
     width: 1920px;
     background-color: #fff;
