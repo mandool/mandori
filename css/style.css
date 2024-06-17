@@ -105,10 +105,12 @@
     text-decoration: none;
     list-style: none;
     color: inherit; /* 링크의 색상 제거 */
-    background-color: #ffffff;
 }
 
-
+/* 다크모드 */
+:root {
+  color-scheme: light only;
+}
 
 .wrap{
     width: 1920px;
