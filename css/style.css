@@ -184,7 +184,7 @@ li{
 align-items: center;
 font-family: 'Pretendard';
 font-style: normal;
-font-weight: 900;
+font-weight: 800;
 font-size: 70px;
 line-height: 80px;
 color: #33A9A4;
@@ -195,7 +195,7 @@ color: #33A9A4;
 align-items: center;
 font-family: 'Pretendard';
 font-style: normal;
-font-weight: 900;
+font-weight: 800;
 font-size: 70px;
 line-height: 80px;
 color: #2D2D2D;
@@ -203,7 +203,7 @@ color: #2D2D2D;
 
 .logomv{
     right: 10px;
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 /*content*/
@@ -280,6 +280,6 @@ color: #2D2D2D;
     margin: 1% auto;
     font-family: 'Pretendard';
     font-weight: 400;
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
 }
