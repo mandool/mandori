@@ -107,18 +107,7 @@
     color: inherit; /* 링크의 색상 제거 */
 }
 
-/* 다크모드 */
-:root {
-  color-scheme: light only;
-}
 
-@media (prefers-color-scheme: dark) {
-  html,
-  body {
-    background: #fff !important;
-    background-color: #fff !important;
-  }
-}
 
 .wrap{
     width: 1920px;
@@ -214,6 +203,7 @@ color: #2D2D2D;
 
 .logomv{
     right: 10px;
+    margin-top: 50px;
 }
 
 /*content*/
@@ -290,6 +280,6 @@ color: #2D2D2D;
     margin: 1% auto;
     font-family: 'Pretendard';
     font-weight: 400;
-    font-size: 24px;
+    font-size: 16px;
     text-align: center;
 }
