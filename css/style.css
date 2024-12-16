@@ -285,81 +285,17 @@ color: #2D2D2D;
 }
 
 
-/* 반응형 설정 */
 
-@media (max-width: 1024px) {
-    .nav_container {
-        padding: 0 30px;
-    }
+/*lottie*/
 
-    ul {
-        gap: 15px;
-    }
 
-    .header_text h1, .world_text {
-        font-size: 40px;
-    }
+#lottie{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 비율 유지하면서 꽉 채우기 */
+    z-index: -1; /* 필요 시 배경으로 보내기 */
 
-    .contents_container .project {
-        font-size: 40px;
-    }
-}
 
-@media (max-width: 768px) {
-    .nav_container, .header_container, .contents_container, .footer_container {
-        padding: 0 15px;
-    }
-
-    .header_text h1, .world_text {
-        font-size: 30px;
-    }
-
-    ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .contents_container .project {
-        font-size: 32px;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav {
-        height: 60px;
-    }
-
-    .header_wrap {
-        height: auto;
-        padding: 20px 0;
-    }
-
-    .header_text h1, .world_text {
-        font-size: 24px;
-    }
-
-    .contents_container .project {
-        font-size: 28px;
-    }
-
-    li {
-        font-size: 18px;
-    }
-
-    .footer_container h1 {
-        font-size: 14px;
-    }
-
-    /* 썸네일 한 줄로 설정 */
-    .contents_content_row {
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto; /* 가로 스크롤 추가 */
-        gap: 10px;
-    }
-
-    .Content_01, .Content_02 {
-        min-width: 80%;
-        height: auto;
-    }
 }
