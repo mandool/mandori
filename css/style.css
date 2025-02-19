@@ -285,6 +285,32 @@ color: #2D2D2D;
 }
 
 
+@media (max-width: 768px) {
+    .nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .header_text h1 {
+        font-size: 2rem;
+    }
+
+    .world_text {
+        font-size: 1.2rem;
+    }
+
+    .project {
+        font-size: 1.5rem;
+    }
+}
+
+
+
 
 /*lottie*/
 
