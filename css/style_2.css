@@ -283,7 +283,32 @@ nav {
     margin-bottom: 0;
 }
 
+/*catparobpa contents*/
+.catparobpa_project_background {
+    width: 100%;
+    height: 160px;
+    background: #eadccf;
+}
 
+.catparobpa_btn {
+    padding: 28px 120px;
+    background-color: #c96a4c;
+    border-radius: 80px;
+    margin: 0px auto;
+    border: none;
+    outline: none;
+    display: block;
+    cursor: pointer; 
+    text-align: center; /* 버튼 내 텍스트를 중앙 정렬 */
+}
+
+.catparobpa_btn a {
+    font-size: 36px;
+    color: #fff;
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+}
 
 
 footer .container{
@@ -387,6 +412,33 @@ footer .container p {
         font-size: 12px;
 
     }
+
+    /*catparobpa contents*/
+.catparobpa_project_background {
+    width: 100%;
+    height: 120px;
+    background: #eadccf;
+}
+
+.catparobpa_btn {
+    padding: 10px 50px;
+    background-color: #c96a4c;
+    border-radius: 80px;
+    margin: 0px auto;
+    border: none;
+    outline: none;
+    display: block;
+    cursor: pointer; 
+}
+
+.catparobpa_btn a {
+    font-size: 16px;
+    color: #fff;
+    font-family: 'Pretendard';
+    font-weight: 500;
+    font-style: normal;
+}
+
 
 
     #about-us .container {
