@@ -134,19 +134,30 @@ body {
 }
 
 #main {
-    background-image: url('../img/project_main.jpg');
     min-height: 100vh;
-    background-position: bottom center;
-    background-size: cover;
+    position: relative;
+    overflow: hidden;
 }
 
-
+#bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+    z-index: -1;
+}
 
 .container {
     max-width: 1600px;
     padding: 16px;
     margin: auto;
 }
+
 
 nav {
     display: flex;
@@ -182,13 +193,6 @@ nav {
 }
 
 
-.main-content .main {
-    font-size: 220px;
-    font-family: 'Pretendard';
-    font-weight: 900;
-    font-style: normal;
-
-}
 
 
 .menu-btn {
@@ -274,6 +278,9 @@ footer .container p {
         background-position: bottom center;
         background-size: cover;
       }
+
+
+    
     
 
     .logo {
@@ -326,15 +333,7 @@ footer .container p {
 
     
     
-    
-    .main-content .main {
-    font-size: 40px;
-    font-family: 'Pretendard';
-    font-weight: 900;
-    font-style: normal;
-    height: 40vh;
 
-}
 
 
     .section-title h1 {
