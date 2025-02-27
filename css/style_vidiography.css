@@ -248,6 +248,14 @@ nav {
     font-size: 24px;
 }
 
+.video-container {
+    display: block;
+}
+
+.video-container_m {
+    display: none;
+}
+
 
 footer .container{
     display: flex;
@@ -356,10 +364,26 @@ footer .container p {
         transform: scale(1.0) translateY(0);
     }
 
+    .video-container {
+        display: none;
+    }
+    
+    .video-container_m {
+        display: block;
+        position: relative;
+        width: 100vw;
+        height: 0;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        margin-left: -16px;
+        margin-right: -16px;
+    }
 
-    #about-us .container {
-        flex-direction: column;
-        gap: 30px;
+    .video-container_m iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     footer.container {
