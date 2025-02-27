@@ -372,10 +372,6 @@ footer .container p {
         display: block;
         position: relative;
         width: 100vw;
-        height: 0;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        margin-left: -16px;
-        margin-right: -16px;
     }
 
     .video-container_m iframe {
