@@ -138,7 +138,12 @@ body {
     min-height: 5vh;
 }
 
+/*닌텐도lottie*/
+.lottie_project_nintendo {
+    width: 100%;
+    background-color: #da1b13;
 
+}
 
 #lottie{
     background-position: bottom center;
