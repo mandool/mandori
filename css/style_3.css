@@ -232,7 +232,7 @@ nav {
 }
 
 .project {
-    width: 770px;
+    width: calc(50% - 8px);
 
 }
 
@@ -263,7 +263,7 @@ footer .container p {
 }
 
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 768px) {
 
     body {
         width: 100vw;
@@ -277,7 +277,9 @@ footer .container p {
         background-size: cover;
       }
 
-
+.project {
+        width: 100%; /* 좁은 화면에서는 꽉 차게 */
+    }
     
     
 

@@ -230,7 +230,7 @@ nav {
 }
 
 .project {
-    width: 770px;
+    width: calc(50% - 8px);
 
 }
 
@@ -262,8 +262,12 @@ footer .container p {
 }
 
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 768px) {
 
+    .project {
+        width: 100%; /* 좁은 화면에서는 꽉 차게 */
+    }
+    
     body {
         width: 100vw;
         overflow-x: hidden;
