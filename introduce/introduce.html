@@ -84,7 +84,10 @@
             z-index: 1;
             /* 캐릭터 레이어 */
             pointer-events: none;
-            transform: translateZ(0); 
+            /* 👇 여기도 동일하게 3D 가속 코드를 명시합니다 */
+            transform: translate3d(0, 0, 0);
+             -webkit-transform: translate3d(0, 0, 0);
+              backface-visibility: hidden;
             will-change: transform; /* "크롬아, 이 레이어는 계속 움직일 거니까 그래픽 카드로 미리 준비해!" */
             
         }
@@ -192,8 +195,11 @@
             margin-bottom: 2rem;
             z-index: 3;
             position: relative;
-            background: transparent; /* 배경이 진짜 투명하다고 명시 */
-            opacity: 0.99; /* 💡 핵심: 1이 아닌 0.99를 주면, 크롬이 이 영역을 "투명도가 있는 층"으로 강제 인식해서 뒤에 있는 캐릭터를 파먹지 않고 다 그리게 됩니다! */
+            /* 👇 새로운 궁극의 하드웨어 가속 코드 추가 */
+            transform: translate3d(0, 0, 0); 
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden; 
+            -webkit-backface-visibility: hidden;
 
         }
 
