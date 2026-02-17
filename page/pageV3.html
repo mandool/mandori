@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style_2.css">
+       
+    <!--favicon-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/asset/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/asset/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/asset/favicon-16x16.png">
+    <link rel="manifest" href="../img/asset/site.webmanifest">
+
+    <title>Mandori performance⭐</title>
+</head>
+<body>
+    <section id="main">
+        
+        <div class="container">
+            <nav>
+                <a href="https://mandool.github.io/mandori/"><img src="../img/mandori_logo.png" alt="" class="logo"></a>
+                <ul class="nav-list">
+                    <li><a href="https://foil-sofa-818.notion.site/1dd1597bbf444baf95d29ad738605888">Who I'am</a></li>
+                    <li><a href="../project/project.html">Project</a></li>
+                    <li><a href="../Vidiograpgy/Vidiograpgy.html">Videography</a></li>
+                    <li><a href="https://www.instagram.com/10000.dol">Instagram</a></li>
+                </ul>
+                <!--menu hanburger-->
+                <img src="../img/menu-01.svg" alt="" class="menu-btn">
+                
+
+            </nav>
+
+        </div>
+    </section>
+
+
+
+
+    <!--section2-->
+
+    <section id="project">
+        <img src="../img/Vwp3-1.jpg" alt="" width="100%">
+
+        <div class="container">
+            
+            <div class="overview">
+                <div class="detail">
+                <h3>Rainy season of Taipei</h3>
+                <p>대만의 6월 우기 시즌을 담은 1분 24초 길이의 영상은 타이베이의 새로운 매력을 보여줍니다. <br>
+                    맑은 날과는 다른, 비 오는 길거리의 독특한 감성을 컨셉으로 삼아 제작되었습니다. <br>
+                    이 영상은 우천 시 타이베이의 모습을 생생하게 담아내어, 비가 내리는 도시의 특별한 분위기를 전달합니다.<br>
+                    영상은 대만 여행을 계획 중인 사람들에게 중요한 메시지를 전합니다. 타이베이는 비가 와도 여행하기에 좋은 도시라는 점을 강조합니다.<br>
+                    이 영상은 우기 시즌의 타이베이가 가진 독특한 아름다움과 여행의 즐거움을 효과적으로 전달합니다.</p>
+
+                <h4>기여도</h4>
+                <p class="contribute">여행 포토그래피 : 100% ㅣ 여행 영상촬영 및 편집 : 100%</p>  
+                </div>
+
+            </div>
+
+
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp3-2.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp3-3.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+            <div class="projects">
+                <div class="video-container">
+                <iframe width="1920" height="1080" src="https://www.youtube.com/embed/qXXtjUSZhpc?si=oTgkrhvS4TJM9rHw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+                
+            <div class="projects">
+                <div class="video-container_m">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/qXXtjUSZhpc?si=oTgkrhvS4TJM9rHw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            </div>
+
+    </section>
+    
+
+    
+
+    <!--footer-->
+    <footer>
+
+        <div class="section-title">
+            <div class="line"></div>
+            </div>
+        <div class="container">
+            <p>Copyrightⓒ2026 Manjekim All rights reserved. <Br>
+            본 사이트는 상업적 목적이 아닌 개인 포트폴리오 용도로 제작되었습니다.</p>
+        </div>
+    </footer>
+
+
+<script>
+    const navBtn = document.querySelector('.menu-btn')
+    const navList = document.querySelector('.nav-list')
+
+    navBtn.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        navBtn.classList.toggle("active");
+
+        if (navList.classList.contains("active")) {
+            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+            navBtn.src = "../img/menu-x-01.svg";
+        } else {
+            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+            navBtn.src = "../img/menu-01.svg";
+        }        
+    })
+</script>
+<script src="../js/lottie.min.js"></script>
+<script src="../js/custom_wp1.js"></script>
+<script src="../js/custom_wp2.js"></script>
+
+</body>
+</html>

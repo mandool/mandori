@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style_2.css">
+       
+    <!--favicon-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/asset/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/asset/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/asset/favicon-16x16.png">
+    <link rel="manifest" href="../img/asset/site.webmanifest">
+
+    <title>Mandori performance⭐</title>
+</head>
+<body>
+    <section id="main">
+        <div class="container">
+            <nav>
+                <a href="https://mandool.github.io/mandori/"><img src="../img/mandori_logo.png" alt="" class="logo"></a>
+                <ul class="nav-list">
+                    <li><a href="https://foil-sofa-818.notion.site/1dd1597bbf444baf95d29ad738605888">Who I'am</a></li>
+                    <li><a href="../project/project.html">Project</a></li>
+                    <li><a href="../Vidiograpgy/Vidiograpgy.html">Videography</a></li>
+                    <li><a href="https://www.instagram.com/10000.dol">Instagram</a></li>
+                </ul>
+                <!--menu hanburger-->
+                <img src="../img/menu-01.svg" alt="" class="menu-btn">
+                
+
+            </nav>
+
+        </div>
+    </section>
+
+
+    <!--section2-->
+
+    <section id="project">
+
+        <img src="../img/Vwp1-1.jpg" alt="" width="100%">
+        
+        <div class="container">
+            
+            <div class="overview">
+                <div class="detail">
+                <h3>해외여행 포토그래피</h3>
+                <p>
+                    세계를 담아낸 렌즈의 시선, 그 아름다운 여정을 소개합니다. <br>
+                    DSLR과 미러리스 카메라로 포착한 순간들은 라이트룸의 섬세한 터치로 예술적 작품으로 승화되었습니다.<br>
+                    각 프레임에는 낯선 땅에서 마주한 경이로운 풍경과 문화, 그리고 여행자의 감동이 녹아있습니다.<br>
+                    눈부신 일출부터 고요한 황혼까지, 도시의 거리에서 고즈넉한 시골 마을까지, 다채로운 순간들이 영원히 기록되었습니다.<br>
+                    이 사진 컬렉션은 여행의 기록을 넘어 세상을 바라보는 새로운 시각을 제시합니다. 전문가의 기술과 여행자의 열정이 만나 탄생한 이 작품들을 통해, 세계 곳곳을 누비는 여행의 설렘을 느껴보시기 바랍니다.
+                </p>
+
+                <h4>기여도</h4>
+                <p class="contribute">여행 포토그래피 : 100%</p>  
+                </div>
+
+            </div>
+
+
+
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp1-2.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp1-3.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp1-4.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </section>
+    
+
+
+    <!--footer-->
+    <footer>
+
+        <div class="section-title">
+            <div class="line"></div>
+            </div>
+        <div class="container">
+            <p>Copyrightⓒ2026 Manjekim All rights reserved. <Br>
+            본 사이트는 상업적 목적이 아닌 개인 포트폴리오 용도로 제작되었습니다.</p>
+        </div>
+    </footer>
+
+
+<script>
+    const navBtn = document.querySelector('.menu-btn')
+    const navList = document.querySelector('.nav-list')
+
+    navBtn.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        navBtn.classList.toggle("active");
+
+        if (navList.classList.contains("active")) {
+            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+            navBtn.src = "../img/menu-x-01.svg";
+        } else {
+            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+            navBtn.src = "../img/menu-01.svg";
+        }        
+    })
+</script>
+<script src="../js/lottie.min.js"></script>
+<script src="../js/custom_wp1.js"></script>
+<script src="../js/custom_wp2.js"></script>
+
+</body>
+</html>

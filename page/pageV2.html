@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style_2.css">
+       
+    <!--favicon-->
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/asset/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../img/asset/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/asset/favicon-16x16.png">
+    <link rel="manifest" href="../img/asset/site.webmanifest">
+
+    <title>Mandori performance⭐</title>
+</head>
+<body>
+    <section id="main">
+        <div class="container">
+            <nav>
+                <a href="https://mandool.github.io/mandori/"><img src="../img/mandori_logo.png" alt="" class="logo"></a>
+                <ul class="nav-list">
+                    <li><a href="https://foil-sofa-818.notion.site/1dd1597bbf444baf95d29ad738605888">Who I'am</a></li>
+                    <li><a href="../project/project.html">Project</a></li>
+                    <li><a href="../Vidiograpgy/Vidiograpgy.html">Videography</a></li>
+                    <li><a href="https://www.instagram.com/10000.dol">Instagram</a></li>
+                </ul>
+                <!--menu hanburger-->
+                <img src="../img/menu-01.svg" alt="" class="menu-btn">
+                
+
+            </nav>
+
+        </div>
+    </section>
+
+
+    <!--section2-->
+
+    <section id="project">
+        <img src="../img/Vwp2-1.jpg" alt="" width="100%">
+
+        <div class="container">
+            
+            <div class="overview">
+                <div class="detail">
+                <h3>국내여행 포토그래피</h3>
+                <p>대한민국의 아름다운 풍경과 문화를 담아낸 여행 사진들은 각 지역의 독특한 매력을 생생하게 전달하며, 이를 통해 한국의 다채로운 모습을 엿볼 수 있습니다. <br>
+                    이러한 사진들은 단순히 시각적인 아름다움을 넘어 한국의 역사, 전통, 그리고 현대적 발전이 어우러진 독특한 정체성을 보여줍니다. </p>
+
+                <h4>기여도</h4>
+                <p class="contribute">여행 포토그래피 : 100%</p>  
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="projects">
+                <div class="project">
+                        <img src="../img/Vwp2-2.jpg" alt="" width="100%">
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </section>
+    
+
+
+    <!--footer-->
+    <footer>
+
+        <div class="section-title">
+            <div class="line"></div>
+            </div>
+        <div class="container">
+            <p>Copyrightⓒ2026 Manjekim All rights reserved. <Br>
+            본 사이트는 상업적 목적이 아닌 개인 포트폴리오 용도로 제작되었습니다.</p>
+        </div>
+    </footer>
+
+
+<script>
+    const navBtn = document.querySelector('.menu-btn')
+    const navList = document.querySelector('.nav-list')
+
+    navBtn.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        navBtn.classList.toggle("active");
+
+        if (navList.classList.contains("active")) {
+            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+            navBtn.src = "../img/menu-x-01.svg";
+        } else {
+            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+            navBtn.src = "../img/menu-01.svg";
+        }        
+    })
+</script>
+<script src="../js/lottie.min.js"></script>
+<script src="../js/custom_wp1.js"></script>
+<script src="../js/custom_wp2.js"></script>
+
+</body>
+</html>
