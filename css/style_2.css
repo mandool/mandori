@@ -198,7 +198,7 @@ nav {
 .btn-primary {
     border: none;
     background : var(--secondary);
-    color(--primary);
+    color: var(--primary);
 }
 
 
