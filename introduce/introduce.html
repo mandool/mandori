@@ -85,6 +85,9 @@
             z-index: 1;
             /* 캐릭터 레이어 */
             pointer-events: none;
+            transform: translateZ(0); 
+            will-change: transform; /* "크롬아, 이 레이어는 계속 움직일 거니까 그래픽 카드로 미리 준비해!" */
+            
         }
 
         #main {
@@ -188,6 +191,8 @@
             letter-spacing: -0.01em;
             margin-bottom: 2rem;
             z-index: 3;
+            position: relative;       /* z-index가 작동하게 만들어 줍니다 */
+            transform: translateZ(0); /* 크롬에게 이 글씨를 별도의 레이어로 그리라고 강제 명령해서 파먹힘 방지 */
         }
 
         /* Project Sections (Section 2 & 3) */
