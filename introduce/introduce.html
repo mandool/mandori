@@ -191,8 +191,10 @@
             letter-spacing: -0.01em;
             margin-bottom: 2rem;
             z-index: 3;
-            position: relative;       /* z-index가 작동하게 만들어 줍니다 */
-            transform: translateZ(0); /* 크롬에게 이 글씨를 별도의 레이어로 그리라고 강제 명령해서 파먹힘 방지 */
+            position: relative;
+            background: transparent; /* 배경이 진짜 투명하다고 명시 */
+            opacity: 0.99; /* 💡 핵심: 1이 아닌 0.99를 주면, 크롬이 이 영역을 "투명도가 있는 층"으로 강제 인식해서 뒤에 있는 캐릭터를 파먹지 않고 다 그리게 됩니다! */
+
         }
 
         /* Project Sections (Section 2 & 3) */
