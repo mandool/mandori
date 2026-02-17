@@ -70,7 +70,8 @@
             overflow-x: hidden;
             max-width: 100%;
             position: relative;
-            background-color: var(--primary);
+            background-color: transparent;
+            /* 배경을 투명하게 하여 #root가 보이게 함 */
             color: var(--white);
             font-family: 'Pretendard', sans-serif;
         }
@@ -81,31 +82,28 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: 1;
-            /* 캐릭터 레이어 최적화 */
+            z-index: -1;
+            /* 캐릭터 레이어를 배경으로 하향 조정 */
             pointer-events: none;
             will-change: transform;
-            transform-style: preserve-3d;
-            backface-visibility: hidden;
-            /* 👇 여기도 동일하게 3D 가속 코드를 명시합니다 */
-            transform: translate3d(0, 0, 0);
-            -webkit-transform: translate3d(0, 0, 0);
-            backface-visibility: hidden;
-            will-change: transform;
-            /* "크롬아, 이 레이어는 계속 움직일 거니까 그래픽 카드로 미리 준비해!" */
+            /* 클리핑 방지를 위해 인위적인 transform 제거 */
+            background-color: var(--primary);
+            /* 배경색을 캐릭터 레이어가 담당 */
+        }
 
+        canvas {
+            display: block;
+            width: 100% !important;
+            height: 100% !important;
         }
 
         #main {
             background-color: transparent !important;
             min-height: 100vh;
             position: relative;
-            z-index: 2;
-            /* UI 레이어 최적화 */
+            z-index: 1;
+            /* UI 레이어를 캐릭터 위로 배치 */
             pointer-events: none;
-            transform: translateZ(0);
-            /* 새로운 적층 컨텍스트 강제 생성 */
-            will-change: transform;
         }
 
         .container {
@@ -462,7 +460,7 @@
             }
         }
     </style>
-  <script type="module" crossorigin src="/mandori/assets/introduce-Dbfc9cgz.js"></script>
+  <script type="module" crossorigin src="/mandori/assets/introduce-Wr3YiqQO.js"></script>
 </head>
 
 <body>
