@@ -188,7 +188,17 @@
 
     navBtn.addEventListener("click", function () {
         navList.classList.toggle("active");
+        navBtn.classList.toggle("active");
+
+        if (navList.classList.contains("active")) {
+            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+            navBtn.src = "/mandori/menu-x-01.svg";
+        } else {
+            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+            navBtn.src = "/mandori/menu-01.svg";
+        }
     })
+
 </script>
 
 </body>
