@@ -541,17 +541,21 @@
     </footer>
 
     <script>
-        const navBtn = document.querySelector('.menu-btn');
-        const navList = document.querySelector('.nav-list');
+    const navBtn = document.querySelector('.menu-btn')
+    const navList = document.querySelector('.nav-list')
 
-        navBtn.addEventListener("click", function () {
-            navList.classList.toggle("active");
-            if (navList.classList.contains("active")) {
-                navBtn.src = "../img/menu-x-01.svg";
-            } else {
-                navBtn.src = "../img/menu-01.svg";
-            }
-        });
+    navBtn.addEventListener("click", function () {
+        navList.classList.toggle("active");
+        navBtn.classList.toggle("active");
+
+        if (navList.classList.contains("active")) {
+            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+            navBtn.src = "/mandori/menu-x-01.svg";
+        } else {
+            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+            navBtn.src = "/mandori/menu-01.svg";
+        }
+    })
     </script>
     <script type="module" src="../src/main.jsx"></script>
 </body>
