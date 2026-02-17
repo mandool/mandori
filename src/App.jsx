@@ -21,8 +21,8 @@ function Model({ url }) {
                     trigger: '#hero',
                     start: 'top top',
                     end: 'bottom top',
-                    scrub: 0.5, // 지연 시간을 줄여 응답성 강화
-                    fastScrollEnd: true, // 빠른 스크롤 시 즉시 최종 상태로 렌더링
+                    scrub: 0.3, // 지연 시간을 더 줄여 더 즉각적인 반응
+                    fastScrollEnd: true,
                 }
             });
 
@@ -39,7 +39,7 @@ function Model({ url }) {
                     trigger: '.card',
                     start: 'top 80%',
                     end: 'top center',
-                    scrub: 0.5, // 동일하게 응답성 강화
+                    scrub: 0.3, // 반응성 최적화
                     fastScrollEnd: true,
                     immediateRender: false,
                 }
@@ -109,9 +109,22 @@ export default function App() {
             <LoadingScreen />
             <Canvas
                 shadows
+                gl={{
+                    alpha: true,
+                    antialias: true,
+                    powerPreference: 'high-performance',
+                    preserveDrawingBuffer: true // 일부 브라우저 렌더링 깜빡임 방지
+                }}
                 camera={{ position: [0, 0, 5], fov: 45 }}
-                eventSource={document.body} // body 전체를 이벤트 소스로 활용
-                style={{ pointerEvents: 'auto', position: 'fixed', top: 0, left: 0 }}
+                eventSource={document.body}
+                style={{
+                    pointerEvents: 'auto',
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh'
+                }}
             >
                 <Scene interactionEnabled={interactionEnabled} />
             </Canvas>
