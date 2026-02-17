@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandori performance⭐</title>
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../img/asset/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/mandori/assets/favicon-32x32-DiaAx9S5.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/mandori/assets/favicon-16x16-DlEwq9FV.png">
+
+    <style>
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 100;
+            font-style: normal;
+            src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        /* ... simplified font faces for brevity, but including necessary ones ... */
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 400;
+            src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Pretendard';
+            font-weight: 800;
+            src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+            color: inherit;
+        }
+
+        :root {
+            --primary: #000;
+            --secondary: #ffd936;
+            --white: #efefef;
+            --text-dark: #111111;
+            --text-gray: #666666;
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
+            background-color: var(--primary);
+            color: var(--white);
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        #root {
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            /* 캐릭터 레이어 */
+            pointer-events: none;
+        }
+
+        #main {
+            background-color: transparent !important;
+            min-height: 100vh;
+            position: relative;
+            z-index: 2;
+            /* UI 레이어 */
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1600px;
+            padding: 16px;
+            margin: auto;
+            pointer-events: none;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            pointer-events: auto;
+        }
+
+        .logo {
+            width: 166px;
+            height: 62px;
+            object-fit: contain;
+        }
+
+        .nav-list {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            pointer-events: auto;
+        }
+
+        .nav-list a {
+            color: var(--white);
+            font-size: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-list a:hover {
+            color: #0caadb;
+            transform: translateY(-20px);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--white);
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            border: none;
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .menu-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: none;
+            width: 21px;
+            height: 25px;
+            cursor: pointer;
+            pointer-events: auto;
+            z-index: 101;
+        }
+
+        /* Hero Section (Section 1) */
+
+        #hero {
+            height: calc(100vh - 80px);
+            /* 헤더 제외 높이 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* 중앙 정렬로 변경 */
+            text-align: center;
+            pointer-events: none;
+        }
+
+        #hero h1 {
+            font-size: 6rem;
+            font-weight: 900;
+            text-transform: capitalize;
+            /* All-Rounder Designer 형식 */
+            letter-spacing: -0.01em;
+            margin-bottom: 2rem;
+            z-index: 3;
+        }
+
+        /* Project Sections (Section 2 & 3) */
+
+        #project {
+            background-color: #f5f7fa;
+            color: var(--text-dark);
+            background-image: linear-gradient(135deg, #e0e9f5 0%, #f5f7fa 50%, #ffffff 100%);
+            padding: 150px 0;
+            position: relative;
+            z-index: 5;
+            /* 3D 캐릭터보다 위에 위치 */
+            pointer-events: auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            pointer-events: auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            pointer-events: auto;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+        }
+
+        .card ul li {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+
+        .skill-slider-section {
+            background-color: #ffffff;
+            padding: 150px 0;
+            color: var(--text-dark);
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            z-index: 5;
+        }
+
+        .skill-header {
+            margin-bottom: 80px;
+            text-align: left;
+        }
+
+        .skill-header h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.3;
+        }
+
+        .slider-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        .logo-track {
+            display: flex;
+            width: calc(200px * 20);
+            /* 10 types * 2 sets */
+            animation: scroll 30s linear infinite;
+        }
+
+        .logo-item {
+            width: 200px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-item img {
+            max-width: 120px;
+            max-height: 80px;
+            object-fit: contain;
+            filter: grayscale(0);
+            /* 원본 색상 유지 */
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-200px * 10));
+            }
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        @media screen and (max-width: 768px) {
+            #hero h1 {
+                font-size: 3rem;
+                /* 모바일에서 텍스트 크기 축소 */
+            }
+
+            .project {
+                width: 100%;
+                /* 좁은 화면에서는 꽉 차게 */
+            }
+
+            body {
+                width: 100vw;
+                overflow-x: hidden;
+            }
+
+            #main {
+                background-color: transparent !important;
+                min-height: 100vh;
+            }
+
+            .logo {
+                width: 60%;
+                height: auto;
+                /* 비율 유지하며 높이 자동 조정 */
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-list {
+                display: flex;
+                /* hidden 해제 */
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.911);
+                position: fixed;
+                top: 0;
+                right: -100%;
+                /* 화면 밖으로 */
+                width: 100%;
+                height: 100vh;
+                padding-top: 80px;
+                transition: all 0.3s ease;
+                z-index: 100;
+                pointer-events: auto;
+            }
+
+            .nav-list a:hover {
+                transform: none;
+                color: var(--white);
+            }
+
+            .nav-list.active {
+                right: 0;
+            }
+
+            .nav-list li {
+                text-align: left;
+                width: 100%;
+                padding: 10px 30px;
+            }
+
+            .nav-list li a {
+                font-size: 40px;
+                font-family: 'Pretendard';
+                font-weight: 900;
+                font-style: normal;
+            }
+
+            .section-header {
+                margin-bottom: 30px;
+            }
+
+            .section-header h2 {
+                font-size: 24px;
+            }
+
+            .card h3 {
+                font-size: 1.25rem;
+            }
+
+            .card ul li {
+                font-size: 0.93rem;
+            }
+
+            #project {
+                padding: 38px 0;
+            }
+
+            .skill-slider-section {
+                padding: 20px 0;
+            }
+
+            .skill-header {
+                margin-bottom: 40px;
+            }
+
+            .skill-header h2 {
+                font-size: 24px;
+            }
+
+            .logo-item {
+                width: 100px;
+                height: 60px;
+            }
+
+            .logo-item img {
+                max-width: 80px;
+                max-height: 50px;
+            }
+
+            @keyframes scroll {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(calc(-100px * 10));
+                }
+            }
+        }
+    </style>
+  <script type="module" crossorigin src="/mandori/assets/introduce-DiVaNHZW.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <section id="main">
+        <div class="container">
+            <nav>
+                <a href="#"><img src="data:image/png;base64,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" alt="logo" class="logo"></a>
+                <ul class="nav-list">
+                    <li><a href="./introduce.html">Who I'am</a></li>
+                    <li><a href="../project/project.html">Project</a></li>
+                    <li><a href="../Vidiograpgy/Vidiograpgy.html">Videography</a></li>
+                    <li><a href="https://www.instagram.com/10000.dol">Instagram</a></li>
+                </ul>
+                <img src="data:image/svg+xml,%3csvg%20id='Layer_1'%20data-name='Layer%201'%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2028'%3e%3cdefs%3e%3cstyle%3e.cls-1{fill:%23fff;}%3c/style%3e%3c/defs%3e%3crect%20class='cls-1'%20x='0.24'%20y='4.47'%20width='23.3'%20height='2'/%3e%3crect%20class='cls-1'%20x='6.3'%20y='13'%20width='17.23'%20height='2'/%3e%3crect%20class='cls-1'%20x='0.24'%20y='21.53'%20width='23.3'%20height='2'/%3e%3c/svg%3e" alt="menu" class="menu-btn">
+            </nav>
+
+            <main>
+                <!-- Section 1 -->
+                <section id="hero">
+                    <h1>All-Rounder Designer</h1>
+                </section>
+            </main>
+        </div>
+    </section>
+
+    <!-- Section 2 & 3 -->
+    <section id="project">
+        <div class="container">
+            <div class="section-header">
+                <h2>경계를 넘어 문제를 해결하는<br>문제를 푸는 올라운더</h2>
+            </div>
+
+            <div class="card-container">
+                <div class="card">
+                    <h3>Brand Experience</h3>
+                    <ul>
+                        <li>Logo & Identity Design</li>
+                        <li>brand Guidelines</li>
+                        <li>3D Modeling & Rendering</li>
+                        <li>Motion Graphic</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Visual & Content</h3>
+                    <ul>
+                        <li>Graphic Artwork & Key Visual</li>
+                        <li>Video Editing & Motion</li>
+                        <li>Web & Contents Design</li>
+                        <li>Generative AI</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Planning & Publishing</h3>
+                    <ul>
+                        <li>Vibe coding</li>
+                        <li>Marketing Planning & Strategy</li>
+                        <li>Web publishing</li>
+                    </ul>
+                </div>
+            </div>
+
+    </section>
+
+    <!-- Section 4: Skill Slider Section -->
+    <section class="skill-slider-section">
+        <div class="container">
+            <div class="skill-header">
+                <h2>제약 없는 표현의 기반,<br>테크니컬 스킬</h2>
+            </div>
+
+            <div class="slider-container">
+                <div class="logo-track">
+                    <!-- First set of logos -->
+                    <div class="logo-item"><img src="/mandori/assets/to_1-mMxpo0BC.png" alt="to_1"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_2-pLN7r0BN.png" alt="to_2"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_3-Om4WWMWO.png" alt="to_3"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_4-DQWucZ5M.png" alt="to_4"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_5-BPLeLh4a.png" alt="to_5"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_6-8P9PIlE4.png" alt="to_6"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_7-BZA6tjjN.png" alt="to_7"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_8-U3AaOLE6.png" alt="to_8"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_9-Bt04m33s.png" alt="to_9"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_10-YUxGeFep.png" alt="to_10"></div>
+                    <!-- Duplicate set for seamless looping -->
+                    <div class="logo-item"><img src="/mandori/assets/to_1-mMxpo0BC.png" alt="to_1"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_2-pLN7r0BN.png" alt="to_2"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_3-Om4WWMWO.png" alt="to_3"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_4-DQWucZ5M.png" alt="to_4"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_5-BPLeLh4a.png" alt="to_5"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_6-8P9PIlE4.png" alt="to_6"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_7-BZA6tjjN.png" alt="to_7"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_8-U3AaOLE6.png" alt="to_8"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_9-Bt04m33s.png" alt="to_9"></div>
+                    <div class="logo-item"><img src="/mandori/assets/to_10-YUxGeFep.png" alt="to_10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Copyrightⓒ2026 Manjekim All rights reserved.<br>
+                본 사이트는 상업적 목적이 아닌 개인 포트폴리오 용도로 제작되었습니다.</p>
+        </div>
+    </footer>
+
+    <script>
+        const navBtn = document.querySelector('.menu-btn');
+        const navList = document.querySelector('.nav-list');
+
+        navBtn.addEventListener("click", function () {
+            navList.classList.toggle("active");
+            if (navList.classList.contains("active")) {
+                navBtn.src = "../img/menu-x-01.svg";
+            } else {
+                navBtn.src = "../img/menu-01.svg";
+            }
+        });
+    </script>
+</body>
+
+</html>
