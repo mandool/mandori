@@ -21,12 +21,13 @@ function Model({ url }) {
                     trigger: '#hero',
                     start: 'top top',
                     end: 'bottom top',
-                    scrub: 1,
+                    scrub: 0.5, // 지연 시간을 줄여 응답성 강화
+                    fastScrollEnd: true, // 빠른 스크롤 시 즉시 최종 상태로 렌더링
                 }
             });
 
             tl.to(gsapGroupRef.current.rotation, {
-                x: Math.PI, // 회전량을 반 바퀴로 유지 (부드러운 전환)
+                x: Math.PI,
                 y: 0,
                 ease: 'none',
             });
@@ -35,10 +36,11 @@ function Model({ url }) {
             gsap.to(gsapGroupRef.current.position, {
                 y: -20,
                 scrollTrigger: {
-                    trigger: '.card', // 첫 번째 카드 기준
-                    start: 'top 80%', // 카드가 화면 아래에서 20% 정도 올라왔을 때 시작
+                    trigger: '.card',
+                    start: 'top 80%',
                     end: 'top center',
-                    scrub: 1,
+                    scrub: 0.5, // 동일하게 응답성 강화
+                    fastScrollEnd: true,
                     immediateRender: false,
                 }
             });

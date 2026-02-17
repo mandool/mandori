@@ -1,11 +1,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DCLN4ZBVWZ"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-DCLN4ZBVWZ');
+    gtag('config', 'G-DCLN4ZBVWZ');
 </script>
 
 <!DOCTYPE html>
@@ -83,14 +83,18 @@
             top: 0;
             left: 0;
             z-index: 1;
-            /* 캐릭터 레이어 */
+            /* 캐릭터 레이어 최적화 */
             pointer-events: none;
+            will-change: transform;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
             /* 👇 여기도 동일하게 3D 가속 코드를 명시합니다 */
             transform: translate3d(0, 0, 0);
-             -webkit-transform: translate3d(0, 0, 0);
-              backface-visibility: hidden;
-            will-change: transform; /* "크롬아, 이 레이어는 계속 움직일 거니까 그래픽 카드로 미리 준비해!" */
-            
+            -webkit-transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            will-change: transform;
+            /* "크롬아, 이 레이어는 계속 움직일 거니까 그래픽 카드로 미리 준비해!" */
+
         }
 
         #main {
@@ -98,8 +102,11 @@
             min-height: 100vh;
             position: relative;
             z-index: 2;
-            /* UI 레이어 */
+            /* UI 레이어 최적화 */
             pointer-events: none;
+            transform: translateZ(0);
+            /* 새로운 적층 컨텍스트 강제 생성 */
+            will-change: transform;
         }
 
         .container {
@@ -196,9 +203,9 @@
             z-index: 3;
             position: relative;
             /* 👇 새로운 궁극의 하드웨어 가속 코드 추가 */
-            transform: translate3d(0, 0, 0); 
+            transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
-            backface-visibility: hidden; 
+            backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
 
         }
@@ -462,7 +469,8 @@
     <section id="main">
         <div class="container">
             <nav>
-                <a href="https://mandool.github.io/mandori/"><img src="../img/mandori_logo.png" alt="logo" class="logo"></a>
+                <a href="https://mandool.github.io/mandori/"><img src="../img/mandori_logo.png" alt="logo"
+                        class="logo"></a>
                 <ul class="nav-list">
                     <li><a href="./introduce.html">About</a></li>
                     <li><a href="../project/project.html">Project</a></li>
@@ -511,7 +519,7 @@
                     <h3>Planning & Publishing</h3>
                     <ul>
                         <li>Vibe Coding</li>
-                        <li>Promotion Marketing</li>                        
+                        <li>Promotion Marketing</li>
                         <li>Marketing Planning & Strategy</li>
                         <li>Web publishing</li>
                     </ul>
@@ -563,29 +571,27 @@
         </div>
     </footer>
 
-<script>
-    const navBtn = document.querySelector('.menu-btn')
-    const navList = document.querySelector('.nav-list')
+    <script>
+        const navBtn = document.querySelector('.menu-btn')
+        const navList = document.querySelector('.nav-list')
 
-    navBtn.addEventListener("click", function () {
-        navList.classList.toggle("active");
-        navBtn.classList.toggle("active");
+        navBtn.addEventListener("click", function () {
+            navList.classList.toggle("active");
+            navBtn.classList.toggle("active");
 
-        if (navList.classList.contains("active")) {
-            // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
-            navBtn.src = "/mandori/menu-x-01.svg";
-        } else {
-            // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
-            navBtn.src = "/mandori/menu-01.svg";
-        }
-    })
-    
+            if (navList.classList.contains("active")) {
+                // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
+                navBtn.src = "/mandori/menu-x-01.svg";
+            } else {
+                // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
+                navBtn.src = "/mandori/menu-01.svg";
+            }
+        })
 
-</script>
+
+    </script>
 
     <script type="module" src="../src/main.jsx"></script>
 </body>
 
 </html>
-
-
