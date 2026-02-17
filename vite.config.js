@@ -29,8 +29,6 @@ export default defineConfig({
                 page14: resolve(__dirname, 'page/page14.html'),
                 page15: resolve(__dirname, 'page/page15.html'),
                 page16: resolve(__dirname, 'page/page16.html'),
-                page17: resolve(__dirname, 'page/page17.html'),
-                page18: resolve(__dirname, 'page/page18.html'),
                 pageV1: resolve(__dirname, 'page/pageV1.html'),
                 pageV2: resolve(__dirname, 'page/pageV2.html'),
                 pageV3: resolve(__dirname, 'page/pageV3.html'),
