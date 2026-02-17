@@ -31,14 +31,14 @@ function Model({ url }) {
                 ease: 'none',
             });
 
-            // 가시성 및 위치 조절: 우아한 관성을 위해 scrub: 1 적용 (부드러운 추적)
+            // 가시성 및 위치 조절: 실제 개별 .card 영역 도달 시 숨김 (타이밍 극대화)
             gsap.to(gsapGroupRef.current.position, {
-                y: -20, // 화면 밖으로 완전히 이동
+                y: -20,
                 scrollTrigger: {
-                    trigger: '#project',
-                    start: 'top bottom',
-                    end: 'top top',
-                    scrub: 1, // 1초의 부드러운 지연 효과 추가
+                    trigger: '.card', // 첫 번째 카드 기준
+                    start: 'top 80%', // 카드가 화면 아래에서 20% 정도 올라왔을 때 시작
+                    end: 'top center',
+                    scrub: 1,
                     immediateRender: false,
                 }
             });
@@ -93,10 +93,10 @@ export default function App() {
     const [interactionEnabled, setInteractionEnabled] = React.useState(true);
 
     useEffect(() => {
-        // 섹션 2(#project)에 도달하면 캐릭터 인터랙션 및 커서 비활성화
+        // 첫 번째 .card가 보이기 시작하면 캐릭터 인터랙션 비활성화
         ScrollTrigger.create({
-            trigger: '#project',
-            start: 'top bottom',
+            trigger: '.card',
+            start: 'top 80%',
             onEnter: () => setInteractionEnabled(false),
             onLeaveBack: () => setInteractionEnabled(true)
         });
