@@ -123,7 +123,8 @@ export default function App() {
                     top: 0,
                     left: 0,
                     width: '100vw',
-                    height: '100vh'
+                    height: '100vh',
+                    touchAction: 'none'
                 }}
             >
                 <Scene interactionEnabled={interactionEnabled} />
