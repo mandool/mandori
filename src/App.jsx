@@ -66,12 +66,12 @@ function Scene({ interactionEnabled }) {
                     global={true}
                     cursor={interactionEnabled} // 커서 표시 여부 제어
                     snap={true}
-                    speed={8} // 회전 속도를 파격적으로 상향 (모바일 반응성 극대화)
+                    speed={100} // 회전 속도를 극한으로 상향 (사용자 요청 10배 이상 반영)
                     zoom={1}
                     rotation={[0, 0, 0]}
-                    polar={[-Math.PI / 3, Math.PI / 3]} // 회전 범위 소폭 확대
-                    azimuth={[-Math.PI / 1.5, Math.PI / 1.5]} // 회전 범위 확대
-                    config={{ mass: 1, tension: 700, friction: 30 }} // 더 민첩하고 쫀득한 물리 반응
+                    polar={[-Math.PI / 2.5, Math.PI / 2.5]} // 회전 범위 대폭 확대
+                    azimuth={[-Math.PI, Math.PI]} // 회전 범위 전체로 확대
+                    config={{ mass: 0.5, tension: 1500, friction: 60 }} // 초경량/초민첩 물리 엔진
                 >
                     <Float
                         speed={2.6} // 기존 2에서 1.3배 증속
