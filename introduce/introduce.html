@@ -84,7 +84,7 @@
             left: 0;
             z-index: -1;
             /* 캐릭터 레이어를 배경으로 하향 조정 */
-            pointer-events: auto;
+            pointer-events: none;
             will-change: transform;
             /* 클리핑 방지를 위해 인위적인 transform 제거 */
             background-color: var(--primary);
@@ -189,11 +189,10 @@
             /* 중앙 정렬로 변경 */
             text-align: center;
             pointer-events: none;
-            touch-action: none;
-            /* 모바일 브라우저 스크롤 방해 차단 */
         }
 
         #hero h1 {
+            font-family: 'Archivo', sans-serif;
             font-size: 6rem;
             font-weight: 900;
             text-transform: capitalize;
@@ -206,15 +205,12 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
-            pointer-events: none;
-            /* 텍스트가 터치를 방해하지 않도록 이벤트 통과 */
             position: relative;
             /* 👇 새로운 궁극의 하드웨어 가속 코드 추가 */
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
-
         }
 
         /* Project Sections (Section 2 & 3) */
