@@ -66,12 +66,12 @@ function Scene({ interactionEnabled }) {
                     global={true}
                     cursor={interactionEnabled} // 커서 표시 여부 제어
                     snap={true}
-                    speed={100} // 회전 속도를 극한으로 상향 (사용자 요청 10배 이상 반영)
+                    speed={2}
                     zoom={1}
                     rotation={[0, 0, 0]}
-                    polar={[-Math.PI / 2.5, Math.PI / 2.5]} // 회전 범위 대폭 확대
-                    azimuth={[-Math.PI, Math.PI]} // 회전 범위 전체로 확대
-                    config={{ mass: 0.5, tension: 1500, friction: 60 }} // 초경량/초민첩 물리 엔진
+                    polar={[-Math.PI / 4, Math.PI / 4]}
+                    azimuth={[-Math.PI / 2, Math.PI / 2]}
+                    config={{ mass: 2, tension: 400 }}
                 >
                     <Float
                         speed={2.6} // 기존 2에서 1.3배 증속
@@ -123,8 +123,7 @@ export default function App() {
                     top: 0,
                     left: 0,
                     width: '100vw',
-                    height: '100vh',
-                    touchAction: 'none'
+                    height: '100vh'
                 }}
             >
                 <Scene interactionEnabled={interactionEnabled} />
