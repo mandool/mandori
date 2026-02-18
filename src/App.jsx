@@ -66,12 +66,12 @@ function Scene({ interactionEnabled }) {
                     global={true}
                     cursor={interactionEnabled} // 커서 표시 여부 제어
                     snap={true}
-                    speed={2}
+                    speed={3.5} // 회전 속도 대폭 상향 (모바일 반응성 강화)
                     zoom={1}
                     rotation={[0, 0, 0]}
                     polar={[-Math.PI / 4, Math.PI / 4]}
                     azimuth={[-Math.PI / 2, Math.PI / 2]}
-                    config={{ mass: 2, tension: 400 }}
+                    config={{ mass: 1, tension: 500 }} // 물리 반응 최적화 (쫀득한 느낌)
                 >
                     <Float
                         speed={2.6} // 기존 2에서 1.3배 증속
