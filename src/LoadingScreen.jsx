@@ -6,6 +6,18 @@ export default function LoadingScreen() {
     const [show, setShow] = useState(true);
 
     useEffect(() => {
+        if (show) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [show]);
+
+    useEffect(() => {
         if (!active && progress === 100) {
             // 로딩이 완료되면 약간의 지연 후 제거 (부드러운 전환을 위해)
             const timeout = setTimeout(() => setShow(false), 500);
