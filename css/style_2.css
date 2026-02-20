@@ -1,128 +1,29 @@
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 100;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Thin.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 200;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraLight.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 300;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Light.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 400;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 500;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 600;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 700;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 800;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.ttf') format("truetype");
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Pretendard';
-    font-weight: 900;
-    font-style: normal;
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot');
-    src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.eot?#iefix') format('embedded-opentype'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff2') format('woff2'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.woff') format('woff'),
-        url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Black.ttf') format("truetype");
-    font-display: swap;
-}
+@import 'fonts.css';
 
-@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Noto+Sans+KR:wght@100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-
-*{  margin: 0;
+* {
+    margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
-    color: inherit; /* 링크의 색상 제거 */
+    color: inherit;
+    /* 링크의 색상 제거 */
 }
 
 :root {
-    --primary : #000;
-    --secondary : #ffd936;
-    --white : #efefef;
+    --primary: #000;
+    --secondary: #ffd936;
+    --white: #efefef;
 
-}   
+}
 
 
-html, body {
+html,
+body {
     overflow-x: hidden;
     max-width: 100%;
     position: relative;
-  }
+}
 
 
 body {
@@ -145,7 +46,7 @@ body {
 
 }
 
-#lottie{
+#lottie {
     background-position: bottom center;
     background-size: cover;
 }
@@ -177,7 +78,7 @@ nav {
 
 .nav-list a:hover {
     color: #0caadb;
-    transform: translateY(-20px); 
+    transform: translateY(-20px);
 
 }
 
@@ -197,7 +98,7 @@ nav {
 
 .btn-primary {
     border: none;
-    background : var(--secondary);
+    background: var(--secondary);
     color: var(--primary);
 }
 
@@ -218,7 +119,7 @@ nav {
 }
 
 .project #lottie {
-        margin-top: 25px;
+    margin-top: 25px;
 }
 
 .container .overview {
@@ -227,7 +128,7 @@ nav {
     padding: 0 5%;
 }
 
-.container .overview .detail h3{
+.container .overview .detail h3 {
     font-size: 40px;
     text-align: left;
     margin-top: 52px;
@@ -237,7 +138,7 @@ nav {
     color: var(--primary);
 }
 
-.container .overview .detail h4{
+.container .overview .detail h4 {
     font-size: 28px;
     text-align: left;
     margin-top: 48px;
@@ -303,8 +204,9 @@ nav {
     border: none;
     outline: none;
     display: block;
-    cursor: pointer; 
-    text-align: center; /* 버튼 내 텍스트를 중앙 정렬 */
+    cursor: pointer;
+    text-align: center;
+    /* 버튼 내 텍스트를 중앙 정렬 */
 }
 
 .catparobpa_btn a {
@@ -326,7 +228,7 @@ nav {
 }
 
 
-footer .container{
+footer .container {
     display: flex;
     padding: 40px 16px;
     align-items: center;
@@ -343,21 +245,22 @@ footer .container p {
     body {
         width: 100vw;
         overflow-x: hidden;
-      }
-      
-      #main {
+    }
+
+    #main {
         background-attachment: fixed;
         background-size: cover;
-      }
-    
+    }
+
 
     .logo {
         width: 60%;
-    }      
+    }
 
     .menu-btn {
         display: block;
-        z-index: 11; /* Ensure it's above the nav-list */
+        z-index: 11;
+        /* Ensure it's above the nav-list */
     }
 
 
@@ -371,28 +274,29 @@ footer .container p {
         height: 100vh;
         padding-top: 80px;
         transition: all 0.3s ease;
-        z-index: 11; /* Ensure it's above the nav-list */
-        
+        z-index: 11;
+        /* Ensure it's above the nav-list */
+
     }
 
     .nav-list a:hover {
         transform: none;
         color: var(--white);
     }
-    
+
 
     .nav-list.active {
         right: 0;
     }
 
 
-    .nav-list li{
+    .nav-list li {
         text-align: left;
         width: 100%;
         padding: 10px 30px;
     }
 
-    .nav-list li a{
+    .nav-list li a {
         font-size: 40px;
         font-family: 'Pretendard';
         font-weight: 900;
@@ -429,54 +333,55 @@ footer .container p {
     }
 
     /*catparobpa contents*/
-.catparobpa_project_background {
-    width: 100%;
-    height: 120px;
-    background: #fff;
-}
+    .catparobpa_project_background {
+        width: 100%;
+        height: 120px;
+        background: #fff;
+    }
 
-.catparobpa_btn {
-    padding: 10px 50px;
-    background-color: #c96a4c;
-    border-radius: 80px;
-    margin: 0px auto;
-    border: none;
-    outline: none;
-    display: block;
-    cursor: pointer; 
-}
+    .catparobpa_btn {
+        padding: 10px 50px;
+        background-color: #c96a4c;
+        border-radius: 80px;
+        margin: 0px auto;
+        border: none;
+        outline: none;
+        display: block;
+        cursor: pointer;
+    }
 
-.catparobpa_btn a {
-    font-size: 16px;
-    color: #fff;
-    font-family: 'Pretendard';
-    font-weight: 500;
-    font-style: normal;
-}
+    .catparobpa_btn a {
+        font-size: 16px;
+        color: #fff;
+        font-family: 'Pretendard';
+        font-weight: 500;
+        font-style: normal;
+    }
 
-/*videography*/
+    /*videography*/
 
-.video-container {
-    display: none;
-}
+    .video-container {
+        display: none;
+    }
 
-.video-container_m {
-    display: block;
-    position: relative;
-    width: 100vw;
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    margin-left: -16px;
-    margin-right: -16px;
-}
+    .video-container_m {
+        display: block;
+        position: relative;
+        width: 100vw;
+        height: 0;
+        padding-bottom: 56.25%;
+        /* 16:9 aspect ratio */
+        margin-left: -16px;
+        margin-right: -16px;
+    }
 
-.video-container_m iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+    .video-container_m iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
 
     #about-us .container {
         flex-direction: column;
