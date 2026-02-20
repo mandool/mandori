@@ -5,6 +5,7 @@ import { useProgress } from '@react-three/drei';
 export default function LoadingScreen() {
     const { active, progress } = useProgress();
     const [show, setShow] = useState(true);
+    const [revealed, setRevealed] = useState(false); // 마스크 애니메이션 시작 상태
 
     useEffect(() => {
         const preventDefault = (e) => {
@@ -14,17 +15,13 @@ export default function LoadingScreen() {
         };
 
         if (show) {
-            // CSS 잠금
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
             document.body.style.height = '100%';
             document.documentElement.style.height = '100%';
-
-            // 이벤트 잠금 (더 강력한 조치)
             window.addEventListener('wheel', preventDefault, { passive: false });
             window.addEventListener('touchmove', preventDefault, { passive: false });
         } else {
-            // 해제
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
             document.body.style.height = '';
@@ -45,14 +42,19 @@ export default function LoadingScreen() {
 
     useEffect(() => {
         if (!active && progress === 100) {
-            const timeout = setTimeout(() => setShow(false), 800); // 넉넉하게 0.8초 대기
-            return () => clearTimeout(timeout);
+            // 로딩 100% 도달 후 0.5초 대기했다가 마스크 애니메이션 시작
+            const maskTimeout = setTimeout(() => {
+                setRevealed(true);
+                // 마스크 애니메이션(1.2초) 완료 후 완전히 제거
+                const exitTimeout = setTimeout(() => setShow(false), 1200);
+                return () => clearTimeout(exitTimeout);
+            }, 500);
+            return () => clearTimeout(maskTimeout);
         }
     }, [active, progress]);
 
     if (!show) return null;
 
-    // React Portal을 사용하여 #root를 탈출하고 document.body 바로 아래에 렌더링 (최상단 노출 보장)
     return createPortal(
         <div style={{
             position: 'fixed',
@@ -60,16 +62,16 @@ export default function LoadingScreen() {
             left: 0,
             width: '100%',
             height: '100%',
-            backgroundColor: '#000',
+            backgroundColor: '#ffffff', // 배경색 흰색으로 변경
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 999999, // 압도적인 숫자로 최상단 보장
-            transition: 'opacity 0.6s ease',
-            opacity: (!active && progress === 100) ? 0 : 1,
+            zIndex: 999999,
+            transition: 'clip-path 1.2s cubic-bezier(0.85, 0, 0.15, 1)', // 시네마틱 원형 마스크 전환
+            clipPath: revealed ? 'circle(0% at 50% 50%)' : 'circle(150% at 50% 50%)', // 커지면서 사라지는 구멍 연출
             pointerEvents: show ? 'all' : 'none',
-            color: '#fff',
+            color: '#19181d', // 텍스트 컬러 변경
             fontFamily: 'Archivo, sans-serif'
         }}>
             <div style={{
@@ -77,34 +79,39 @@ export default function LoadingScreen() {
                 fontWeight: 900,
                 marginBottom: '30px',
                 letterSpacing: '0.2em',
-                fontStyle: 'italic'
+                fontStyle: 'italic',
+                opacity: revealed ? 0 : 1,
+                transition: 'opacity 0.4s ease'
             }}>
                 Loading..
             </div>
             <div style={{
                 width: '260px',
                 height: '4px',
-                backgroundColor: 'rgba(255,255,255,0.1)',
+                backgroundColor: 'rgba(25, 24, 29, 0.1)', // 진회색 기반 배경 바
                 position: 'relative',
                 borderRadius: '10px',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                opacity: revealed ? 0 : 1,
+                transition: 'opacity 0.4s ease'
             }}>
                 <div style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     height: '100%',
-                    backgroundColor: '#ffd936',
+                    backgroundColor: '#19181d', // 프로그레스 바 컬러 변경
                     width: `${progress}%`,
                     transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    boxShadow: '0 0 15px rgba(255, 217, 54, 0.5)'
                 }} />
             </div>
             <div style={{
                 marginTop: '15px',
                 fontSize: '1rem',
                 fontWeight: 600,
-                color: '#ffd936'
+                color: '#19181d', // 퍼센트 수치 컬러 변경
+                opacity: revealed ? 0 : 1,
+                transition: 'opacity 0.4s ease'
             }}>
                 {Math.round(progress)}%
             </div>
