@@ -1,83 +1,104 @@
-import React, { useEffect, useState } from 'react';
-import { useProgress } from '@react-three/drei';
-
-export default function LoadingScreen() {
-    const { active, progress } = useProgress();
-    const [show, setShow] = useState(true);
-
-    useEffect(() => {
+useEffect(() => {
+    const preventDefault = (e) => {
         if (show) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
+            e.preventDefault();
         }
+    };
 
-        return () => {
-            document.body.style.overflow = '';
-        };
-    }, [show]);
+    if (show) {
+        // CSS 잠금
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.height = '100%';
+        document.documentElement.style.height = '100%';
 
-    useEffect(() => {
-        if (!active && progress === 100) {
-            // 로딩이 완료되면 약간의 지연 후 제거 (부드러운 전환을 위해)
-            const timeout = setTimeout(() => setShow(false), 500);
-            return () => clearTimeout(timeout);
-        }
-    }, [active, progress]);
+        // 이벤트 잠금 (더 강력한 조치)
+        window.addEventListener('wheel', preventDefault, { passive: false });
+        window.addEventListener('touchmove', preventDefault, { passive: false });
+    } else {
+        // 해제
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.height = '';
+        document.documentElement.style.height = '';
+        window.removeEventListener('wheel', preventDefault);
+        window.removeEventListener('touchmove', preventDefault);
+    }
 
-    if (!show) return null;
+    return () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        document.body.style.height = '';
+        document.documentElement.style.height = '';
+        window.removeEventListener('wheel', preventDefault);
+        window.removeEventListener('touchmove', preventDefault);
+    };
+}, [show]);
 
-    return (
+useEffect(() => {
+    if (!active && progress === 100) {
+        const timeout = setTimeout(() => setShow(false), 800); // 넉넉하게 0.8초 대기
+        return () => clearTimeout(timeout);
+    }
+}, [active, progress]);
+
+if (!show) return null;
+
+return (
+    <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#000',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 9999,
+        transition: 'opacity 0.6s ease', // 더 부드러운 사라짐
+        opacity: (!active && progress === 100) ? 0 : 1,
+        pointerEvents: show ? 'all' : 'none',
+        color: '#fff',
+        fontFamily: 'Archivo, sans-serif'
+    }}>
         <div style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#000',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 9999,
-            transition: 'opacity 0.5s ease',
-            opacity: active ? 1 : 0,
-            pointerEvents: active ? 'all' : 'none',
-            color: '#fff',
-            fontFamily: 'Pretendard, sans-serif'
+            fontSize: '2.5rem',
+            fontWeight: 900,
+            marginBottom: '30px',
+            letterSpacing: '0.2em',
+            fontStyle: 'italic'
+        }}>
+            Loading..
+        </div>
+        <div style={{
+            width: '260px',
+            height: '4px',
+            backgroundColor: 'rgba(255,255,255,0.1)',
+            position: 'relative',
+            borderRadius: '10px',
+            overflow: 'hidden'
         }}>
             <div style={{
-                fontSize: '2rem',
-                fontWeight: 900,
-                marginBottom: '20px',
-                letterSpacing: '0.1em'
-            }}>
-                MANDORI
-            </div>
-            <div style={{
-                width: '200px',
-                height: '2px',
-                backgroundColor: '#333',
-                position: 'relative',
-                overflow: 'hidden'
-            }}>
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    height: '100%',
-                    backgroundColor: '#fff',
-                    width: `${progress}%`,
-                    transition: 'width 0.3s ease'
-                }} />
-            </div>
-            <div style={{
-                marginTop: '10px',
-                fontSize: '0.9rem',
-                opacity: 0.5
-            }}>
-                {Math.round(progress)}%
-            </div>
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                height: '100%',
+                backgroundColor: '#ffd936', // 브랜드 골드 컬러 적용
+                width: `${progress}%`,
+                transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 0 15px rgba(255, 217, 54, 0.5)'
+            }} />
         </div>
-    );
+        <div style={{
+            marginTop: '15px',
+            fontSize: '1rem',
+            fontWeight: 600,
+            color: '#ffd936'
+        }}>
+            {Math.round(progress)}%
+        </div>
+    </div>
+);
 }
