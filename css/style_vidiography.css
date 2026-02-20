@@ -27,7 +27,7 @@ body {
 
 
 body {
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 300;
     font-style: normal;
     color: var(--primary);
@@ -85,7 +85,7 @@ nav {
 
 .main-content .main {
     font-size: 220px;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 900;
     font-style: normal;
 
@@ -227,7 +227,7 @@ footer .container p {
 
     .nav-list li a {
         font-size: 40px;
-        font-family: 'Pretendard';
+        font-family: var(--font-pretendard);
         font-weight: 900;
         font-style: normal;
     }
@@ -237,7 +237,7 @@ footer .container p {
 
     .main-content .main {
         font-size: 40px;
-        font-family: 'Pretendard';
+        font-family: var(--font-pretendard);
         font-weight: 900;
         font-style: normal;
         height: 40vh;

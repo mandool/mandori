@@ -27,7 +27,7 @@ body {
 
 
 body {
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 300;
     font-style: normal;
     color: var(--primary);
@@ -90,7 +90,7 @@ nav {
 .btn-primary {
     border: none;
     background: var(--secondary);
-    color(--primary);
+    color: var(--primary);
 }
 
 
@@ -224,7 +224,7 @@ footer .container p {
 
     .nav-list li a {
         font-size: 40px;
-        font-family: 'Pretendard';
+        font-family: var(--font-pretendard);
         font-weight: 900;
         font-style: normal;
     }

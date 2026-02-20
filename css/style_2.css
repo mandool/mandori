@@ -27,7 +27,7 @@ body {
 
 
 body {
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 300;
     font-style: normal;
     color: var(--primary);
@@ -132,7 +132,7 @@ nav {
     font-size: 40px;
     text-align: left;
     margin-top: 52px;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 800;
     font-style: normal;
     color: var(--primary);
@@ -142,7 +142,7 @@ nav {
     font-size: 28px;
     text-align: left;
     margin-top: 48px;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 800;
     font-style: normal;
     color: var(--primary);
@@ -153,7 +153,7 @@ nav {
     font-size: 24px;
     text-align: left;
     margin-top: 32px;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 400;
     font-style: normal;
     letter-spacing: -1px;
@@ -164,7 +164,7 @@ nav {
     font-size: 24px;
     text-align: left;
     margin-top: 16px;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 400;
     font-style: normal;
     letter-spacing: -1px;
@@ -212,7 +212,7 @@ nav {
 .catparobpa_btn a {
     font-size: 36px;
     color: #fff;
-    font-family: 'Pretendard';
+    font-family: var(--font-pretendard);
     font-weight: 500;
     font-style: normal;
 }
@@ -298,7 +298,7 @@ footer .container p {
 
     .nav-list li a {
         font-size: 40px;
-        font-family: 'Pretendard';
+        font-family: var(--font-pretendard);
         font-weight: 900;
         font-style: normal;
     }
@@ -353,7 +353,7 @@ footer .container p {
     .catparobpa_btn a {
         font-size: 16px;
         color: #fff;
-        font-family: 'Pretendard';
+        font-family: var(--font-pretendard);
         font-weight: 500;
         font-style: normal;
     }
