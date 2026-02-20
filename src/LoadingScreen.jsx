@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useProgress } from '@react-three/drei';
 
 export default function LoadingScreen() {
@@ -51,7 +52,8 @@ export default function LoadingScreen() {
 
     if (!show) return null;
 
-    return (
+    // React Portal을 사용하여 #root를 탈출하고 document.body 바로 아래에 렌더링 (최상단 노출 보장)
+    return createPortal(
         <div style={{
             position: 'fixed',
             top: 0,
@@ -63,8 +65,8 @@ export default function LoadingScreen() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 9999,
-            transition: 'opacity 0.6s ease', // 더 부드러운 사라짐
+            zIndex: 999999, // 압도적인 숫자로 최상단 보장
+            transition: 'opacity 0.6s ease',
             opacity: (!active && progress === 100) ? 0 : 1,
             pointerEvents: show ? 'all' : 'none',
             color: '#fff',
@@ -92,7 +94,7 @@ export default function LoadingScreen() {
                     top: 0,
                     left: 0,
                     height: '100%',
-                    backgroundColor: '#ffd936', // 브랜드 골드 컬러 적용
+                    backgroundColor: '#ffd936',
                     width: `${progress}%`,
                     transition: 'width 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     boxShadow: '0 0 15px rgba(255, 217, 54, 0.5)'
@@ -106,6 +108,7 @@ export default function LoadingScreen() {
             }}>
                 {Math.round(progress)}%
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
