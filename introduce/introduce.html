@@ -21,6 +21,13 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/mandori/assets/favicon-32x32-DiaAx9S5.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/mandori/assets/favicon-16x16-DlEwq9FV.png">
 
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=Poppins:wght@100..900&display=swap"
+        rel="stylesheet">
+
     <style>
         @font-face {
             font-family: 'Pretendard';
@@ -31,7 +38,6 @@
         }
 
         /* ... simplified font faces for brevity, but including necessary ones ... */
-
         @font-face {
             font-family: 'Pretendard';
             font-weight: 400;
@@ -45,6 +51,7 @@
             src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-ExtraBold.woff2') format('woff2');
             font-display: swap;
         }
+
 
         * {
             margin: 0;
@@ -178,7 +185,6 @@
         }
 
         /* Hero Section (Section 1) */
-
         #hero {
             height: calc(100vh - 80px);
             /* 헤더 제외 높이 */
@@ -214,7 +220,6 @@
         }
 
         /* Project Sections (Section 2 & 3) */
-
         #project {
             background-color: #f5f7fa;
             color: var(--text-dark);
@@ -344,6 +349,7 @@
 
         @media screen and (max-width: 768px) {
             #hero h1 {
+                font-family: 'Archivo', sans-serif !important;
                 font-size: 3rem;
                 /* 모바일에서 텍스트 크기 축소 */
             }
