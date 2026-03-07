@@ -104,6 +104,62 @@ export default function App() {
         });
     }, []);
 
+    useEffect(() => {
+        const cameraSection = document.querySelector('#camera-scroll-section');
+        const zoomImage = document.querySelector('.zoom-image');
+        const scrollText = document.querySelector('.scroll-text');
+
+        if (cameraSection && zoomImage) {
+            const mm = gsap.matchMedia();
+
+            mm.add({
+                isMobile: "(max-width: 768px)",
+                isDesktop: "(min-width: 769px)"
+            }, (context) => {
+                const { isMobile } = context.conditions;
+                const cameraContainer = document.querySelector('.camera-container');
+                const scrollText = document.querySelector('.scroll-text');
+
+                if (cameraContainer && scrollText) {
+                    const cameraTl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: "#camera-scroll-section",
+                            start: "top top",
+                            end: "+=120%",
+                            scrub: 1,
+                            pin: true,
+                            anticipatePin: 1,
+                            pinSpacing: false,
+                            invalidateOnRefresh: true,
+                        }
+                    });
+
+                    cameraTl.to(cameraContainer, {
+                        width: "100vw",
+                        height: "100vh",
+                        maxWidth: "none",
+                        maxHeight: "none",
+                        borderRadius: 0,
+                        duration: 1,
+                        ease: "power2.inOut"
+                    });
+
+                    cameraTl.to(scrollText, {
+                        opacity: 1,
+                        filter: "blur(0px)",
+                        duration: 0.8,
+                        ease: "power2.out"
+                    }, "-=0.2");
+                }
+
+            });
+        }
+
+        return () => {
+            ScrollTrigger.getAll().forEach(t => t.kill());
+        };
+    }, []);
+
     return (
         <>
             <LoadingScreen />
