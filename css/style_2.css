@@ -35,8 +35,8 @@ body {
 }
 
 #main {
-    background-color: rgba(0, 0, 0, 0.911);
-    min-height: 5vh;
+    background-color: #000000;
+    height: 80px;
 }
 
 /*닌텐도lottie*/
@@ -59,9 +59,30 @@ body {
 }
 
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 80px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
+    transition: background 0.3s ease;
+    padding: 16px calc((100% - 1600px) / 2 + 16px);
+    box-sizing: border-box;
+    pointer-events: auto;
+    background-color: #000000;
+}
+
+nav.scrolled {
+    background-color: #000000;
+}
+
+@media screen and (max-width: 1632px) {
+    nav {
+        padding: 16px;
+    }
 }
 
 .nav-list {
