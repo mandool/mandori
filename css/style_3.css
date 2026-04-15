@@ -98,11 +98,18 @@ nav.scrolled {
     transition: transform 0.2s ease;
 }
 
+
 .nav-list a:hover {
     color: #0caadb;
     transform: translateY(-20px);
 
 }
+
+.nav-list a .emoji {
+    font-size: 16px; /* 전체 폰트 크기인 20px보다 작게 설정 */
+    top: -3px; /* 위로 2px 이동 */
+}
+
 
 
 .main-content {
@@ -259,6 +266,9 @@ footer .container p {
     }
 
 
+    .nav-list a .emoji {
+    display: none;
+    }
 
 
 

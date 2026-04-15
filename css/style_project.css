@@ -104,6 +104,11 @@ nav.scrolled {
 
 }
 
+.nav-list a .emoji {
+    font-size: 16px; /* 전체 폰트 크기인 20px보다 작게 설정 */
+    top: -3px; /* 위로 2px 이동 */
+}
+
 
 .main-content {
     display: flex;
@@ -259,6 +264,9 @@ footer .container p {
     }
 
 
+    .nav-list a .emoji {
+    display: none;
+    }
 
 
 
