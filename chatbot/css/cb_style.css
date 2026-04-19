@@ -1063,3 +1063,34 @@ textarea {
     white-space: nowrap;
     border: 0;
 }
+
+/* 서버 대기 안내 문구 스타일 */
+.server-notice-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 20px 0;
+    width: 100%;
+}
+
+.server-notice {
+    background-color: #F5F7FA;
+    color: #666;
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    border-radius: 20px; /* 타원형 */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    border: 1px solid #edf0f5;
+    animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
