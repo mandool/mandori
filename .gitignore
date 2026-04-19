@@ -1,3 +1,24 @@
 node_modules/
 dist/
+dist-ssr/
+*.local
+.vscode/*
+!.vscode/extensions.json
 .DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Security
+.env
+.env.production
+.env.development
+chatbot/.env
+public/chatbot/.env
+
+# Build items
+.vite/
+.vercel
+.output
