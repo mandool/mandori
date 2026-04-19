@@ -279,6 +279,12 @@ footer .container p {
         background-size: cover;
     }
 
+    /* 모바일에서 Lottie SVG 과도한 여백 수정 */
+    #lottie svg,
+    #lottie_01 svg {
+        height: auto !important;
+    }
+
 
     .logo {
         width: 60%;
