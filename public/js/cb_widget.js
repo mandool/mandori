@@ -57,9 +57,14 @@
             object-fit: contain;
         }
 
+        /* 챗봇이 열렸을 때 버튼 숨기기 */
+        #cpai-widget-container.is-open #cpai-button {
+            display: none;
+        }
+
         #cpai-iframe-container {
             position: absolute;
-            bottom: 80px;
+            bottom: 80px; /* 기본 위치: 버튼 위 */
             right: 0;
             width: 420px;
             height: 650px;
@@ -74,6 +79,11 @@
             transform-origin: bottom right;
             transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
             pointer-events: auto;
+        }
+
+        /* 챗봇이 열렸을 때 위치를 버튼 자리(하단)로 내리기 */
+        #cpai-widget-container.is-open #cpai-iframe-container {
+            bottom: 0;
         }
 
         #cpai-iframe-container.active {
@@ -104,13 +114,6 @@
                 max-height: none;
                 border-radius: 0;
                 z-index: 100000;
-            }
-            #cpai-button {
-                z-index: 100001;
-            }
-            /* 모바일에서 열렸을 때 버튼을 가리기 원한다면 (챗봇 내부 닫기 버튼 사용) */
-            #cpai-widget-container.is-open #cpai-button {
-                display: none;
             }
         }
     `;
