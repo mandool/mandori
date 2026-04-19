@@ -103,6 +103,11 @@
                 bottom: 20px;
                 right: 20px;
             }
+            #cpai-button {
+                width: 52px;
+                height: 52px;
+                padding: 11px;
+            }
             #cpai-iframe-container {
                 position: fixed;
                 bottom: 0;
