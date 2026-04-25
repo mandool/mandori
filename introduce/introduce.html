@@ -98,6 +98,13 @@
             pointer-events: none;
         }
 
+        /* 태블릿 이하 스크린 패딩(좌우 마진) 20px 적용 */
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 16px 20px;
+            }
+        }
+
         nav {
             position: fixed;
             top: 0;
@@ -112,6 +119,12 @@
             box-sizing: border-box;
             pointer-events: auto;
             background-color: transparent;
+        }
+
+        @media screen and (max-width: 1024px) {
+            nav {
+                padding: 16px 20px;
+            }
         }
 
         nav.scrolled {
@@ -287,6 +300,13 @@
             pointer-events: auto;
         }
 
+        /* 태블릿에서 카드 컨테이너 1줄(1열)로 보이게 변경 */
+        @media screen and (max-width: 1024px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .card {
             background: #ffffff;
             /* 이미지와 일치하도록 순백색으로 원복 */
@@ -390,10 +410,6 @@
                 font-family: 'Archivo', sans-serif !important;
                 font-size: 3rem;
                 /* 모바일에서 텍스트 크기 축소 */
-            }
-
-            .drag-hint {
-            display: none;  /*글자 안나오게*/
             }
 
             .project {
@@ -618,10 +634,13 @@
             /* 기존 768px 모바일에서 캐릭터 터치를 막던 코드는 삭제하고 아래에서 통합 처리 */
         }
 
-        /* 스마트폰, 태블릿 등 터치스크린 기기 전체에서 캐릭터 드래그를 막아 상하 스크롤을 100% 보장 */
+        /* 스마트폰, 태블릿 등 터치스크린 기기 전체에서 캐릭터 드래그를 막아 상하 스크롤을 100% 보장 및 안내문구 숨김 */
         @media (pointer: coarse) {
             .webgl-canvas {
                 pointer-events: none !important;
+            }
+            .drag-hint {
+                display: none !important;
             }
         }
     </style>
