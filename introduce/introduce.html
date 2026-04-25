@@ -72,7 +72,14 @@
             display: block;
             width: 100% !important;
             height: 100% !important;
-            touch-action: pan-y; /* 상하 스크롤 허용, 좌우 드래그는 캔버스가 처리 */
+        }
+
+        .webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
         }
 
         #main {
@@ -386,7 +393,7 @@
             }
 
             .drag-hint {
-            font-size: 0.7rem;
+            display: none;  /*글자 안나오게*/
             }
 
             .project {
@@ -607,9 +614,14 @@
             .scroll-text {
                 font-size: 1.3rem;
             }
+
+            /* 모바일에서는 캐릭터 터치를 막아 스크롤을 100% 보장 */
+            .webgl-canvas {
+                pointer-events: none !important;
+            }
         }
     </style>
-  <script type="module" crossorigin src="/mandori/assets/introduce-BmWxIewu.js"></script>
+  <script type="module" crossorigin src="/mandori/assets/introduce-CWeH0eJj.js"></script>
   <link rel="stylesheet" crossorigin href="/mandori/assets/fonts-CZwEdget.css">
 </head>
 
