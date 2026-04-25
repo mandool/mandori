@@ -59,19 +59,21 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -1;
-            /* 캐릭터 레이어를 배경으로 하향 조정 */
+            z-index: 0;
+            /* 캐릭터 레이어: 터치 이벤트 수신을 위해 0으로 설정 (#main은 z-index:1로 텍스트가 위에 표시됨) */
             pointer-events: none;
             will-change: transform;
             /* 클리핑 방지를 위해 인위적인 transform 제거 */
             background-color: var(--primary);
             /* 배경색을 캐릭터 레이어가 담당 */
+            touch-action: none;
         }
 
         canvas {
             display: block;
             width: 100% !important;
             height: 100% !important;
+            touch-action: none;
         }
 
         #main {
@@ -385,8 +387,7 @@
             }
 
             .drag-hint {
-                display: none;
-                /* 모바일에서는 안내 문구 숨김 */
+            font-size: 0.7rem;
             }
 
             .project {
@@ -609,7 +610,7 @@
             }
         }
     </style>
-  <script type="module" crossorigin src="/mandori/assets/introduce-CAtrG83K.js"></script>
+  <script type="module" crossorigin src="/mandori/assets/introduce-CHBn1zaQ.js"></script>
   <link rel="stylesheet" crossorigin href="/mandori/assets/fonts-CZwEdget.css">
 </head>
 
