@@ -335,9 +335,10 @@
 
         .logo-track {
             display: flex;
-            width: calc(200px * 20);
-            /* 10 types * 2 sets */
+            width: calc(200px * 24);
+            /* 12 types * 2 sets */
             animation: scroll 30s linear infinite;
+            will-change: transform;
         }
 
         .logo-item {
@@ -363,7 +364,7 @@
             }
 
             100% {
-                transform: translateX(calc(-200px * 10));
+                transform: translateX(calc(-200px * 12));
             }
         }
 
@@ -523,7 +524,7 @@
                 }
 
                 100% {
-                    transform: translateX(calc(-100px * 10));
+                    transform: translateX(calc(-100px * 12));
                 }
             }
         }
