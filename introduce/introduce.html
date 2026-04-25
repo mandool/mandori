@@ -66,14 +66,13 @@
             /* 클리핑 방지를 위해 인위적인 transform 제거 */
             background-color: var(--primary);
             /* 배경색을 캐릭터 레이어가 담당 */
-            touch-action: none;
         }
 
         canvas {
             display: block;
             width: 100% !important;
             height: 100% !important;
-            touch-action: none;
+            touch-action: pan-y; /* 상하 스크롤 허용, 좌우 드래그는 캔버스가 처리 */
         }
 
         #main {
@@ -610,7 +609,7 @@
             }
         }
     </style>
-  <script type="module" crossorigin src="/mandori/assets/introduce-CHBn1zaQ.js"></script>
+  <script type="module" crossorigin src="/mandori/assets/introduce-BmWxIewu.js"></script>
   <link rel="stylesheet" crossorigin href="/mandori/assets/fonts-CZwEdget.css">
 </head>
 
