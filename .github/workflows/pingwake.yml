@@ -1,0 +1,15 @@
+name: Keep Render Awake
+
+on:
+  schedule:
+    # 14분마다 실행하되, UTC 23시 및 0시~15시 사이에만 작동
+    # (한국 시간 기준: 오전 8시 ~ 새벽 1시)
+    - cron: "*/14 23,0-15 * * *"
+  workflow_dispatch: # 수동 실행 버튼
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render server
+        run: curl https://mandori.onrender.com/ping
