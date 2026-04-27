@@ -60,8 +60,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -1;
-            /* 캐릭터 레이어를 배경으로 하향 조정 */
+            z-index: 0;
+            /* 캐릭터 레이어: 터치 이벤트 수신을 위해 0으로 설정 (#main은 z-index:1로 텍스트가 위에 표시됨) */
             pointer-events: none;
             will-change: transform;
             /* 클리핑 방지를 위해 인위적인 transform 제거 */
@@ -73,6 +73,14 @@
             display: block;
             width: 100% !important;
             height: 100% !important;
+        }
+
+        .webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw !important;
+            height: 100vh !important;
         }
 
         #main {
@@ -91,6 +99,13 @@
             pointer-events: none;
         }
 
+        /* 태블릿 이하 스크린 패딩(좌우 마진) 20px 적용 */
+        @media screen and (max-width: 1024px) {
+            .container {
+                padding: 16px 20px;
+            }
+        }
+
         nav {
             position: fixed;
             top: 0;
@@ -105,6 +120,12 @@
             box-sizing: border-box;
             pointer-events: auto;
             background-color: transparent;
+        }
+
+        @media screen and (max-width: 1024px) {
+            nav {
+                padding: 16px 20px;
+            }
         }
 
         nav.scrolled {
@@ -280,6 +301,13 @@
             pointer-events: auto;
         }
 
+        /* 태블릿에서 카드 컨테이너 1줄(1열)로 보이게 변경 */
+        @media screen and (max-width: 1024px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .card {
             background: #ffffff;
             /* 이미지와 일치하도록 순백색으로 원복 */
@@ -336,9 +364,10 @@
 
         .logo-track {
             display: flex;
-            width: calc(200px * 20);
-            /* 10 types * 2 sets */
+            width: calc(200px * 24);
+            /* 12 types * 2 sets */
             animation: scroll 30s linear infinite;
+            will-change: transform;
         }
 
         .logo-item {
@@ -364,7 +393,7 @@
             }
 
             100% {
-                transform: translateX(calc(-200px * 10));
+                transform: translateX(calc(-200px * 12));
             }
         }
 
@@ -382,11 +411,6 @@
                 font-family: 'Archivo', sans-serif !important;
                 font-size: 3rem;
                 /* 모바일에서 텍스트 크기 축소 */
-            }
-
-            .drag-hint {
-                display: none;
-                /* 모바일에서는 안내 문구 숨김 */
             }
 
             .project {
@@ -524,7 +548,7 @@
                 }
 
                 100% {
-                    transform: translateX(calc(-100px * 10));
+                    transform: translateX(calc(-100px * 12));
                 }
             }
         }
@@ -607,6 +631,18 @@
             .scroll-text {
                 font-size: 1.3rem;
             }
+
+            /* 기존 768px 모바일에서 캐릭터 터치를 막던 코드는 삭제하고 아래에서 통합 처리 */
+        }
+
+        /* 스마트폰, 태블릿 등 터치스크린 기기 전체에서 캐릭터 드래그를 막아 상하 스크롤을 100% 보장 및 안내문구 숨김 */
+        @media (pointer: coarse) {
+            .webgl-canvas {
+                pointer-events: none !important;
+            }
+            .drag-hint {
+                display: none !important;
+            }
         }
     </style>
 </head>
@@ -623,7 +659,7 @@
                     <li><a href="../introduce/introduce.html"><span class="emoji">🚀</span>About</a></li>
                     <li><a href="../project/project.html">Project</a></li>
                     <li><a href="../Vidiograpgy/Vidiograpgy.html">Videography</a></li>
-                    <li><a href="https://www.instagram.com/10000.dol">Instagram</a></li>
+                    <li><a href="https://www.instagram.com/10000.dol" target="_blank" rel="noopener noreferrer">Instagram</a></li>
                 </ul>
                 <img src="/mandori/menu-01.svg" alt="menu" class="menu-btn">
             </nav>

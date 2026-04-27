@@ -63,15 +63,16 @@ function Scene({ interactionEnabled }) {
             <Suspense fallback={null}>
                 <PresentationControls
                     enabled={interactionEnabled} // 인터랙션 활성화 여부 제어
-                    global={true}
+                    global={false} // 화면 전체가 아닌 모델 위에서만 드래그 가능하도록 변경
                     cursor={interactionEnabled} // 커서 표시 여부 제어
                     snap={true}
-                    speed={2}
+                    speed={4} // 드래그 감도 향상 (PC+모바일 공통)
+                    touch={2} // 모바일 터치 전용 감도 배율 (1=기본, 2=2배 민감)
                     zoom={1}
                     rotation={[0, 0, 0]}
                     polar={[-Math.PI / 4, Math.PI / 4]}
                     azimuth={[-Math.PI / 2, Math.PI / 2]}
-                    config={{ mass: 2, tension: 400 }}
+                    config={{ mass: 1, tension: 300, friction: 20 }} // 더 가볍고 즉각적인 반응
                 >
                     <Float
                         speed={2.6} // 기존 2에서 1.3배 증속
@@ -104,19 +105,26 @@ export default function App() {
         });
     }, []);
 
+    // 히어로 영역 벗어나면 #root z-index를 -1로 되돌려 카메라 섹션 정상 표시
+    useEffect(() => {
+        const rootEl = document.getElementById('root');
+        if (rootEl) {
+            rootEl.style.zIndex = interactionEnabled ? '0' : '-1';
+        }
+    }, [interactionEnabled]);
+
     useEffect(() => {
         const cameraSection = document.querySelector('#camera-scroll-section');
         const zoomImage = document.querySelector('.zoom-image');
         const scrollText = document.querySelector('.scroll-text');
+        
+        let mm = gsap.matchMedia();
 
         if (cameraSection && zoomImage) {
-            const mm = gsap.matchMedia();
-
             mm.add({
-                isMobile: "(max-width: 768px)",
-                isDesktop: "(min-width: 769px)"
+                isDesktop: "(min-width: 769px)",
+                isMobile: "(max-width: 768px)"
             }, (context) => {
-                const { isMobile } = context.conditions;
                 const cameraContainer = document.querySelector('.camera-container');
                 const scrollText = document.querySelector('.scroll-text');
 
@@ -151,11 +159,11 @@ export default function App() {
                         ease: "power2.out"
                     }, "-=0.2");
                 }
-
             });
         }
 
         return () => {
+            mm.revert(); // 뷰포트 전환 또는 컴포넌트 언마운트 시 GSAP 스타일 완벽 초기화
             ScrollTrigger.getAll().forEach(t => t.kill());
         };
     }, []);
@@ -172,14 +180,10 @@ export default function App() {
                     preserveDrawingBuffer: true // 일부 브라우저 렌더링 깜빡임 방지
                 }}
                 camera={{ position: [0, 0, 5], fov: 45 }}
-                eventSource={document.body}
+                className="webgl-canvas"
                 style={{
-                    pointerEvents: 'auto',
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    width: '100vw',
-                    height: '100vh'
+                    pointerEvents: interactionEnabled ? 'auto' : 'none',
+                    touchAction: 'none' // 캔버스 영역(중앙)에서는 스크롤을 완벽히 막고 캐릭터 회전에 집중
                 }}
             >
                 <Scene interactionEnabled={interactionEnabled} />

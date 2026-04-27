@@ -257,7 +257,7 @@ textarea {
     width: 40px;
     height: 40px;
     border-radius: var(--radius-full);
-    background: var(--color-accent-gradient);
+    background: #5e5e63; /* 짙은 차콜 그레이 톤으로 변경 */
     display: flex;
     align-items: center;
     justify-content: center;

@@ -45,10 +45,17 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
+            animation: cpai-float 3s ease-in-out infinite;
         }
         
+        @keyframes cpai-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
         #cpai-button:hover {
             transform: scale(1.1);
+            animation-play-state: paused; /* 호버 시 애니메이션 일시 정지하여 클릭 유도 */
         }
 
         #cpai-button img {
