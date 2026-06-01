@@ -12,6 +12,7 @@ var params = {
     var anim;
 
     anim = lottie.loadAnimation(params);
+    anim.playSegments([0, 48], true);
 
     // 부모 요소 크기를 동적으로 설정
     function resizeLottie() {

@@ -33,6 +33,7 @@ export default defineConfig({
                 pageV2: resolve(__dirname, 'page/pageV2.html'),
                 pageV3: resolve(__dirname, 'page/pageV3.html'),
                 pageV4: resolve(__dirname, 'page/pageV4.html'),
+                tripcom: resolve(__dirname, 'page/trip.com.html'),
             }
         }
     }
