@@ -6,7 +6,15 @@ const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVIC
 const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_MODEL = 'gemini-3.6-flash'; // 최신 단일 모델 (불필요한 fallback 제거 → 속도↑)
+
+// ── 속도 우선 모델 후보 (가벼운 순서 → 무거운 순서) ──
+// 8b/lite 계열이 파라미터가 적어 응답이 가장 빠름
+const SPEED_PRIORITY_MODELS = [
+  'gemini-3.6-flash-lite',      // 최신 초경량 (가장 빠름)
+  'gemini-3.6-flash',           // 최신 기본 Flash
+  'gemini-2.5-flash',           // 2.5 Flash
+  'gemini-2.0-flash-lite',      // 2.0 경량
+];
 
 module.exports = async function handler(req, res) {
   // ── CORS ──
@@ -37,28 +45,45 @@ module.exports = async function handler(req, res) {
       contents,
       generationConfig: {
         temperature: 0.7,
-        maxOutputTokens: 2048,   // 불필요하게 긴 응답 방지 → 체감 속도↑
+        maxOutputTokens: 2048,
         topP: 0.9
       }
     };
     if (systemInstruction) payload.systemInstruction = systemInstruction;
 
-    // ── Gemini 스트리밍 호출 (단일 모델, 즉시 연결) ──
+    // ── 속도 우선 모델 순차 시도 (404면 즉시 다음 모델로) ──
     const cleanApiKey = GEMINI_API_KEY.trim();
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?alt=sse&key=${cleanApiKey}`;
+    let geminiRes = null;
+    let usedModel = '';
 
-    const geminiRes = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    for (const model of SPEED_PRIORITY_MODELS) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${cleanApiKey}`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      console.error(`Gemini [${GEMINI_MODEL}] Error (${geminiRes.status}):`, errText);
-      if (geminiRes.status === 429) return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
-      return res.status(geminiRes.status).json({ error: errText });
+      if (response.ok) {
+        geminiRes = response;
+        usedModel = model;
+        break;
+      }
+
+      // 404 = 모델 미존재 → 즉시 다음 후보로 (지연 최소화)
+      // 429 = 속도 제한 → 즉시 에러 리턴
+      if (response.status === 429) {
+        return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
+      }
+      // 404 외 다른 에러(400, 403 등)도 다음 모델로 넘어감
+      console.warn(`[${model}] → ${response.status} (skip)`);
     }
+
+    if (!geminiRes) {
+      return res.status(500).json({ error: `All models unavailable. Tried: ${SPEED_PRIORITY_MODELS.join(', ')}` });
+    }
+
+    console.log(`✅ Using model: ${usedModel}`);
 
     // ── SSE 스트리밍 응답 (첫 바이트 즉시 전송) ──
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
