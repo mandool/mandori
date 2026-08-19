@@ -13,7 +13,7 @@
     const baseUrl = jsIndex >= 0 ? scriptUrl.substring(0, jsIndex) : '.';
 
     const iconUrl = baseUrl + '/img/cpai_icon.png';
-    const iframeUrl = baseUrl + '/chatbot/cb_index.html';
+    const iframeUrl = baseUrl + '/chatbot/cb_index.html?v=' + new Date().getTime();
 
     // 위젯 CSS 삽입
     const styleString = `
