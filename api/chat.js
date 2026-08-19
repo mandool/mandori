@@ -52,35 +52,34 @@ module.exports = async function handler(req, res) {
       payload.systemInstruction = systemInstruction;
     }
 
-    // 시도할 최신 모델 후보 리스트 (404 방지 Fallback)
+    // Google Gemini API v1beta 호환 모델 후보 (최신 1.5-flash 최우선)
     const MODEL_CANDIDATES = [
-      process.env.GEMINI_MODEL,
-      'gemini-2.0-flash',
-      'gemini-1.5-flash-latest',
-      'gemini-1.5-flash-001',
       'gemini-1.5-flash',
-      'gemini-pro'
-    ].filter(Boolean);
+      'gemini-2.0-flash',
+      'gemini-1.5-flash-8b',
+      'gemini-1.5-pro'
+    ];
 
     let geminiRes = null;
     let lastErrText = '';
+    const cleanApiKey = GEMINI_API_KEY.trim();
 
     for (const model of MODEL_CANDIDATES) {
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${cleanApiKey}`;
       try {
-        const res = await fetch(geminiUrl, {
+        const response = await fetch(geminiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
         });
 
-        if (res.ok) {
-          geminiRes = res;
+        if (response.ok) {
+          geminiRes = response;
           break;
         } else {
-          lastErrText = await res.text();
-          console.warn(`Gemini Model [${model}] failed (${res.status}):`, lastErrText);
-          if (res.status === 429) {
+          lastErrText = await response.text();
+          console.warn(`Gemini Model [${model}] failed (${response.status}):`, lastErrText);
+          if (response.status === 429) {
             return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
           }
         }
