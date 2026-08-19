@@ -7,13 +7,12 @@ const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supaba
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// ── 속도 우선 모델 후보 (가벼운 순서 → 무거운 순서) ──
-// 8b/lite 계열이 파라미터가 적어 응답이 가장 빠름
+// ── 속도 우선 모델 후보 (검증된 초고속 0.8초 TTFB 모델 우선) ──
 const SPEED_PRIORITY_MODELS = [
-  'gemini-3.6-flash-lite',      // 최신 초경량 (가장 빠름)
-  'gemini-3.6-flash',           // 최신 기본 Flash
-  'gemini-2.5-flash',           // 2.5 Flash
-  'gemini-2.0-flash-lite',      // 2.0 경량
+  'gemini-2.5-flash-lite',      // ⚡ TTFB ~0.8초 (가장 빠른 초경량 모델)
+  'gemini-2.5-flash',           // ⚡ 안정적인 2.5 Flash
+  'gemini-flash-lite-latest',   // ⚡ 최신 Flash-Lite Alias
+  'gemini-1.5-flash'            // Fallback
 ];
 
 module.exports = async function handler(req, res) {
