@@ -52,25 +52,46 @@ module.exports = async function handler(req, res) {
       payload.systemInstruction = systemInstruction;
     }
 
-    // Gemini REST API 스트리밍 호출 (alt=sse)
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${DEFAULT_MODEL}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+    // 시도할 최신 모델 후보 리스트 (404 방지 Fallback)
+    const MODEL_CANDIDATES = [
+      process.env.GEMINI_MODEL,
+      'gemini-2.0-flash',
+      'gemini-1.5-flash-latest',
+      'gemini-1.5-flash-001',
+      'gemini-1.5-flash',
+      'gemini-pro'
+    ].filter(Boolean);
 
-    const geminiRes = await fetch(geminiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    });
+    let geminiRes = null;
+    let lastErrText = '';
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      console.error(`Gemini API Error [${geminiRes.status}]:`, errText);
-      
-      if (geminiRes.status === 429) {
-        return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
+    for (const model of MODEL_CANDIDATES) {
+      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${GEMINI_API_KEY}`;
+      try {
+        const res = await fetch(geminiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          geminiRes = res;
+          break;
+        } else {
+          lastErrText = await res.text();
+          console.warn(`Gemini Model [${model}] failed (${res.status}):`, lastErrText);
+          if (res.status === 429) {
+            return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
+          }
+        }
+      } catch (e) {
+        lastErrText = e.message;
       }
-      return res.status(geminiRes.status).json({ error: `Gemini API Error (${geminiRes.status}): ${errText}` });
+    }
+
+    if (!geminiRes) {
+      console.error('All Gemini API Model Candidates failed:', lastErrText);
+      return res.status(500).json({ error: `Gemini API Error: ${lastErrText}` });
     }
 
     // SSE 스트리밍 응답 헤더 설정
