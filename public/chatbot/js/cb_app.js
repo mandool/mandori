@@ -180,8 +180,8 @@ async function sendMessage(text) {
     let fullText = '';
 
     try {
-        // Render에 배포된 백엔드 서버 주소로 변경
-        const url = `https://mandori.onrender.com/api/chat`;
+        // Vercel Serverless 엔드포인트 (상대 경로로 호스팅 환경에 자동 맞춤)
+        const url = `/api/chat`;
         const sysPrompt = systemPrompt || DEFAULT_SYSTEM_PROMPT;
 
         const response = await fetch(url, {

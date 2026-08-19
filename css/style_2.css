@@ -236,7 +236,7 @@ nav.scrolled {
     /* 버튼 내 텍스트를 중앙 정렬 */
 }
 
-.catparobpa_btn a {
+a .catparobpa_btn {
     font-size: 36px;
     color: #fff;
     font-family: var(--font-pretendard);
@@ -388,7 +388,7 @@ footer .container p {
         cursor: pointer;
     }
 
-    .catparobpa_btn a {
+    a .catparobpa_btn {
         font-size: 16px;
         color: #fff;
         font-family: var(--font-pretendard);
