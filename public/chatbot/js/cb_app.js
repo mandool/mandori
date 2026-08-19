@@ -152,26 +152,31 @@ function updateUIStatus(status, model) {
     }
 }
 
-// --- 생각 중 상태 메시지 (순환) ---
+// --- 생각 중 상태 메시지 (순차 진행, 반복 없음) ---
 const THINKING_PHASES = [
-    { text: '만돌이가 생각 중이에요', emoji: '💭', duration: 1500 },
-    { text: '인사이트 및 만돌이 포폴 찾는중', emoji: '📊', duration: 2000 },
-    { text: '답변 장전 중!', emoji: '🔫', duration: 1500 },
-    { text: '열심히 타이핑 중', emoji: '⌨️', duration: 1500 }
+    { text: '만돌이가 생각 중이에요', emoji: '💭', duration: 3000 },
+    { text: '인사이트 분석 및 만돌이 포폴 뒤적거리는중', emoji: '📊', duration: 2000 },
+    { text: '답변 장전 중!', emoji: '🔫', duration: 3000 },
+    { text: '생각 정리한거 타이핑 중...', emoji: '⌨️', duration: 2000 },
+    { text: '쥐어짜내서 타이핑 중!!!!', emoji: '🔥', duration: null } // 마지막 단계: 답변 도착 전까지 고정 유지
 ];
 
-let thinkingInterval = null;
+let thinkingTimeout = null;
 
 function startThinkingAnimation(bubble) {
     let phaseIndex = 0;
 
-    // 첫 번째 상태 즉시 표시
-    renderThinkingPhase(bubble, THINKING_PHASES[0]);
+    function runNextPhase() {
+        const currentPhase = THINKING_PHASES[phaseIndex];
+        renderThinkingPhase(bubble, currentPhase);
 
-    thinkingInterval = setInterval(() => {
-        phaseIndex = (phaseIndex + 1) % THINKING_PHASES.length;
-        renderThinkingPhase(bubble, THINKING_PHASES[phaseIndex]);
-    }, THINKING_PHASES[phaseIndex]?.duration || 1500);
+        if (currentPhase.duration && phaseIndex < THINKING_PHASES.length - 1) {
+            phaseIndex++;
+            thinkingTimeout = setTimeout(runNextPhase, currentPhase.duration);
+        }
+    }
+
+    runNextPhase();
 }
 
 function renderThinkingPhase(bubble, phase) {
@@ -186,9 +191,9 @@ function renderThinkingPhase(bubble, phase) {
 }
 
 function stopThinkingAnimation() {
-    if (thinkingInterval) {
-        clearInterval(thinkingInterval);
-        thinkingInterval = null;
+    if (thinkingTimeout) {
+        clearTimeout(thinkingTimeout);
+        thinkingTimeout = null;
     }
 }
 
