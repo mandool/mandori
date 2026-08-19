@@ -530,6 +530,58 @@ textarea {
     }
 }
 
+/* --- AI 생각 중 상태 애니메이션 --- */
+.thinking-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    animation: thinkingFadeIn 0.3s ease-in-out;
+}
+
+.thinking-emoji {
+    font-size: 1.1em;
+    animation: thinkingBounce 1.2s ease-in-out infinite;
+}
+
+.thinking-text {
+    background: linear-gradient(90deg, var(--color-text-primary) 0%, var(--color-text-secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.thinking-dots {
+    display: inline-flex;
+    letter-spacing: 2px;
+}
+
+.thinking-dots .dot {
+    opacity: 0.2;
+    animation: dotPulse 1.4s infinite ease-in-out;
+}
+
+.thinking-dots .dot:nth-child(1) { animation-delay: 0s; }
+.thinking-dots .dot:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes thinkingFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes thinkingBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+}
+
 /* --- 빠른 응답 버튼 --- */
 .quick-replies {
     padding: var(--spacing-sm) var(--spacing-lg);

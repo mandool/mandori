@@ -152,6 +152,46 @@ function updateUIStatus(status, model) {
     }
 }
 
+// --- 생각 중 상태 메시지 (순환) ---
+const THINKING_PHASES = [
+    { text: '만돌이가 생각 중이에요', emoji: '💭', duration: 1500 },
+    { text: '인사이트 및 만돌이 포폴 찾는중', emoji: '📊', duration: 2000 },
+    { text: '답변 장전 중!', emoji: '🔫', duration: 1500 },
+    { text: '열심히 타이핑 중', emoji: '⌨️', duration: 1500 }
+];
+
+let thinkingInterval = null;
+
+function startThinkingAnimation(bubble) {
+    let phaseIndex = 0;
+
+    // 첫 번째 상태 즉시 표시
+    renderThinkingPhase(bubble, THINKING_PHASES[0]);
+
+    thinkingInterval = setInterval(() => {
+        phaseIndex = (phaseIndex + 1) % THINKING_PHASES.length;
+        renderThinkingPhase(bubble, THINKING_PHASES[phaseIndex]);
+    }, THINKING_PHASES[phaseIndex]?.duration || 1500);
+}
+
+function renderThinkingPhase(bubble, phase) {
+    bubble.innerHTML = `
+        <div class="thinking-status">
+            <span class="thinking-emoji">${phase.emoji}</span>
+            <span class="thinking-text">${phase.text}</span>
+            <span class="thinking-dots">
+                <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+            </span>
+        </div>`;
+}
+
+function stopThinkingAnimation() {
+    if (thinkingInterval) {
+        clearInterval(thinkingInterval);
+        thinkingInterval = null;
+    }
+}
+
 // --- 메인 채팅 로직 ---
 async function sendMessage(text) {
     if (isTyping) return;
@@ -161,8 +201,6 @@ async function sendMessage(text) {
     chatInput.style.height = 'auto';
     sendBtn.disabled = true;
 
-
-
     isTyping = true;
     conversationHistory.push({ role: 'user', parts: [{ text }] });
     // 최근 20개 대화 유지 (컨텍스트 윈도우 관리)
@@ -170,12 +208,16 @@ async function sendMessage(text) {
 
     const group = document.createElement('div');
     group.className = 'message-group bot-message';
-    group.innerHTML = `<div class="message-avatar"><div class="avatar small"><img src="img/profile_chat.png" alt="Mandori AI" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div></div><div class="message-content"><div class="message-bubble"><span class="streaming-cursor"></span></div></div>`;
+    group.innerHTML = `<div class="message-avatar"><div class="avatar small"><img src="img/profile_chat.png" alt="Mandori AI" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div></div><div class="message-content"><div class="message-bubble"></div></div>`;
     chatMessages.appendChild(group);
     scrollToBottom();
     const bubble = group.querySelector('.message-bubble');
 
+    // ⭐ 생각 중 애니메이션 시작!
+    startThinkingAnimation(bubble);
+
     let fullText = '';
+    let firstChunkReceived = false;
 
     try {
         // 호스팅 환경 자동 감지: Vercel이면 상대경로, GitHub Pages 등 외부이면 Vercel 전체 주소 사용
@@ -234,6 +276,11 @@ async function sendMessage(text) {
                         const data = JSON.parse(jsonStr);
                         const chunkText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
                         if (chunkText) {
+                            // ⭐ 첫 번째 텍스트 청크가 도착하면 생각 중 애니메이션 종료!
+                            if (!firstChunkReceived) {
+                                stopThinkingAnimation();
+                                firstChunkReceived = true;
+                            }
                             fullText += chunkText;
                             bubble.innerHTML = formatMessage(fullText) + '<span class="streaming-cursor"></span>';
                             scrollToBottom();
@@ -250,11 +297,13 @@ async function sendMessage(text) {
         conversationHistory.push({ role: 'model', parts: [{ text: fullText }] });
 
     } catch (e) {
+        stopThinkingAnimation();
         // [object Object] 방지를 위해 안전하게 메시지 추출
         const displayMsg = e.message || String(e);
         bubble.innerHTML = `⚠️ 통신 오류가 발생했습니다: ${displayMsg}`;
         conversationHistory.pop(); // 실패한 질문 제거
     } finally {
+        stopThinkingAnimation();
         isTyping = false;
         chatInput.focus();
     }
