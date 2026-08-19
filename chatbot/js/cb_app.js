@@ -154,10 +154,10 @@ function updateUIStatus(status, model) {
 
 // --- 생각 중 상태 메시지 (순차 진행, 반복 없음) ---
 const THINKING_PHASES = [
-    { text: '인사이트 분석 및 만돌이 포폴 뒤적거리는중', emoji: '📊', duration: 1000 },
-    { text: '만돌이가 생각 중이에요', emoji: '💭', duration: 500 },
-    { text: '답변 장전 중!', emoji: '🔫', duration: 500 },
-    { text: '타다다닥 타이핑 중', emoji: '⌨️', duration: 1000 },
+    { text: '인사이트 분석 및 만돌이 포폴 뒤적거리는중', emoji: '📊', duration: 2500 },
+    { text: '만돌이가 생각 중이에요', emoji: '💭', duration: 2000 },
+    { text: '답변 장전 중!', emoji: '🔫', duration: 2500 },
+    { text: '타다다닥 타이핑 중', emoji: '⌨️', duration: 5000 },
     { text: '영혼까지 끌어모아 타이핑 중!!!', emoji: '🔥', duration: null } // 마지막 단계: 답변 도착 전까지 고정 유지
 ];
 
