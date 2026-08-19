@@ -126,22 +126,27 @@ module.exports = async function handler(req, res) {
       }
     }
 
-    res.end();
-
-    // Supabase DB에 대화 로그 비동기 저장 (응답 종료 후)
+    // Supabase DB에 대화 로그 저장 (res.end() 전에 await로 확실히 완료)
     if (supabase && userPromptText) {
-      supabase.from('chat_logs').insert([
-        {
-          user_message: userPromptText,
-          bot_response: fullAiResponse || null,
-          created_at: new Date().toISOString()
+      try {
+        const { error: dbErr } = await supabase.from('chat_logs').insert([
+          {
+            user_message: userPromptText,
+            bot_response: fullAiResponse || null,
+            created_at: new Date().toISOString()
+          }
+        ]);
+        if (dbErr) {
+          console.error('Supabase DB Insert Error:', dbErr.message);
+        } else {
+          console.log('Successfully recorded chat log into Supabase DB.');
         }
-      ]).then(({ error }) => {
-        if (error) console.error('Supabase DB Insert Error:', error.message);
-      }).catch(err => {
+      } catch (err) {
         console.error('Supabase DB Exception:', err);
-      });
+      }
     }
+
+    res.end();
 
   } catch (error) {
     console.error('Vercel API Serverless Error:', error);
