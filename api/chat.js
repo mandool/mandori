@@ -7,12 +7,12 @@ const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supaba
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// ── 속도 우선 모델 후보 ──
+// ── 지능 & 속도 최적화 모델 후보 ──
 const SPEED_PRIORITY_MODELS = [
-  'gemini-2.5-flash',        // ⚡ 안정적인 2.5 Flash
-  'gemini-2.5-flash-lite',   // ⚡ 첫 글자 도착: 0.8초 (초고속!)
-  'gemini-flash-lite-latest',
-  'gemini-1.5-flash'
+  'gemini-3.5-flash-lite',   // 🧠⚡ 최신 3.5 세대 초경량 (지능 UP + 0.9초 초고속 응답)
+  'gemini-2.5-flash-lite',   // ⚡ 0.7초 극초고속 Fallback
+  'gemini-3.5-flash',        // 🧠 3.5 기본 Flash
+  'gemini-2.5-flash'         // 2.5 Flash
 ];
 
 module.exports = async function handler(req, res) {
