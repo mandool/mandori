@@ -58,12 +58,10 @@ const DEFAULT_SYSTEM_PROMPT = `당신은 "미들&시니어급 웹/그래픽/BX �
 4. [인스타그램 안내 조건]: 일반적인 질문에는 인스타그램 주소를 노출하지 마세요. 오직 "어떤 디자인을 선호해?" 혹은 "디자인 스타일"에 대해 물어보는 질문에 대답할 때만 문장 마지막에 "제 디자인 SNS [@10000.dol](https://www.instagram.com/10000.dol)에서도 더 많은 작업물과 소식을 확인하실 수 있습니다!"라고 링크를 달아주세요. 일반적인 질문에는 이 링크를 넣지 마세요.
 5. [상세 페이지 안내 조건]: "Mandori를 소개해줘", "자기소개", 혹은 "바이브코딩 작업물"이나 "AI 워크플로우 도입 사례"에 대해 물어볼 때만 답변 마지막에 "저에 대한 더 자세한 소개와 바이브코딩 작업물은 [3D 인터랙티브 웹](https://mandool.github.io/mandori/introduce/introduce.html)에서 확인하실 수 있습니다!"라고 안내해 주세요. 일반적인 질문에는 이 링크를 넣지 마세요.`;
 
-// 시도할 최신 모델 목록 (안정적인 1.5-flash를 최상단으로 배치)
+// 시도할 최신 모델 목록 (안정적인 3.6-flash를 최상단으로 배치)
 const MODEL_CANDIDATES = [
-    'gemini-1.5-flash',
-    'gemini-1.5-flash-latest',
-    'gemini-1.5-pro',
-    'gemini-pro'
+    'gemini-3.6-flash',
+    'gemini-3.1-pro'
 ];
 
 // --- 초기화 ---
