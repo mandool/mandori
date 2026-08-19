@@ -1,105 +1,71 @@
 const { createClient } = require('@supabase/supabase-js');
 
-// Supabase 클라이언트 초기화 (환경 변수 존재 시)
+// ── 모듈 스코프 (콜드 스타트 시 1회만 실행 → 이후 재사용) ──
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
 const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
-// Gemini API Key 및 백업 모델 설정
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const DEFAULT_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+const GEMINI_MODEL = 'gemini-3.6-flash'; // 최신 단일 모델 (불필요한 fallback 제거 → 속도↑)
 
 module.exports = async function handler(req, res) {
-  // CORS 헤더 설정
+  // ── CORS ──
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // OPTIONS 예비 요청 처리
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
   if (!GEMINI_API_KEY) {
-    console.error('GEMINI_API_KEY environment variable is not configured.');
-    return res.status(500).json({ error: 'Server Configuration Error: GEMINI_API_KEY is missing in Vercel Environment Variables.' });
+    return res.status(500).json({ error: 'GEMINI_API_KEY is missing.' });
   }
 
   try {
     const { systemInstruction, contents } = req.body || {};
-
     if (!contents || !Array.isArray(contents) || contents.length === 0) {
-      return res.status(400).json({ error: 'Invalid Request: contents array is required.' });
+      return res.status(400).json({ error: 'contents array is required.' });
     }
 
-    // 최신 사용자 메시지 추출 (Supabase 기록용)
+    // 사용자 메시지 추출 (Supabase 기록용)
     const lastUserMsg = contents.filter(c => c.role === 'user').slice(-1)[0];
     const userPromptText = lastUserMsg?.parts?.[0]?.text || '';
 
-    // Gemini API payload 구성
+    // ── Gemini API Payload (속도 최적화 설정 포함) ──
     const payload = {
-      contents: contents
-    };
-    if (systemInstruction) {
-      payload.systemInstruction = systemInstruction;
-    }
-
-    // Google Gemini API v1beta 호환 최신 모델 후보 (2026년 기준)
-    const MODEL_CANDIDATES = [
-      'gemini-3.6-flash',
-      'gemini-3.1-pro'
-    ];
-
-    let geminiRes = null;
-    let fallbackErrors = [];
-    const cleanApiKey = GEMINI_API_KEY.trim();
-
-    for (const model of MODEL_CANDIDATES) {
-      const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${cleanApiKey}`;
-      try {
-        const response = await fetch(geminiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-          geminiRes = response;
-          break;
-        } else {
-          const errText = await response.text();
-          fallbackErrors.push(`[${model}]: ${response.status} - ${errText}`);
-          console.warn(`Gemini Model [${model}] failed (${response.status}):`, errText);
-          if (response.status === 429) {
-            return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
-          }
-        }
-      } catch (e) {
-        fallbackErrors.push(`[${model}]: Exception - ${e.message}`);
+      contents,
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,   // 불필요하게 긴 응답 방지 → 체감 속도↑
+        topP: 0.9
       }
+    };
+    if (systemInstruction) payload.systemInstruction = systemInstruction;
+
+    // ── Gemini 스트리밍 호출 (단일 모델, 즉시 연결) ──
+    const cleanApiKey = GEMINI_API_KEY.trim();
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:streamGenerateContent?alt=sse&key=${cleanApiKey}`;
+
+    const geminiRes = await fetch(geminiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      console.error(`Gemini [${GEMINI_MODEL}] Error (${geminiRes.status}):`, errText);
+      if (geminiRes.status === 429) return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
+      return res.status(geminiRes.status).json({ error: errText });
     }
 
-    if (!geminiRes) {
-      const maskedKey = cleanApiKey ? `${cleanApiKey.slice(0, 6)}...${cleanApiKey.slice(-4)}` : 'MISSING';
-      const allErrorsStr = fallbackErrors.join(' | ');
-      console.error(`All Gemini Models Failed. Key: ${maskedKey}. Details:`, allErrorsStr);
-      return res.status(500).json({ 
-        error: `Gemini API Auth/Model Error (Key: ${maskedKey}). Failed attempts: ${allErrorsStr}` 
-      });
-    }
-
-    // SSE 스트리밍 응답 헤더 설정
+    // ── SSE 스트리밍 응답 (첫 바이트 즉시 전송) ──
     res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache, no-transform');
     res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no'); // Nginx/CDN 버퍼링 방지
+    res.flushHeaders(); // 헤더를 즉시 클라이언트로 전송 → 체감 지연 최소화
 
     let fullAiResponse = '';
     const reader = geminiRes.body.getReader();
@@ -110,50 +76,39 @@ module.exports = async function handler(req, res) {
       if (done) break;
 
       const chunkStr = decoder.decode(value, { stream: true });
-      res.write(chunkStr);
+      res.write(chunkStr); // 즉시 클라이언트로 스트리밍
 
-      // Supabase 대화 로그 저장을 위해 응답 텍스트 파싱
+      // 응답 텍스트 파싱 (Supabase 기록용)
       const lines = chunkStr.split('\n');
       for (const line of lines) {
         if (line.startsWith('data: ')) {
           try {
             const data = JSON.parse(line.slice(6).trim());
-            const textChunk = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (textChunk) {
-              fullAiResponse += textChunk;
-            }
-          } catch (e) {
-            // Partial JSON chunk, proceed
-          }
+            const t = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (t) fullAiResponse += t;
+          } catch (_) { /* partial JSON chunk */ }
         }
       }
     }
 
-    // Supabase DB에 대화 로그 저장 (res.end() 전에 await로 확실히 완료)
-    if (supabase && userPromptText) {
-      try {
-        const { error: dbErr } = await supabase.from('chat_logs').insert([
-          {
-            user_message: userPromptText,
-            bot_response: fullAiResponse || null,
-            created_at: new Date().toISOString()
-          }
-        ]);
-        if (dbErr) {
-          console.error('Supabase DB Insert Error:', dbErr.message);
-        } else {
-          console.log('Successfully recorded chat log into Supabase DB.');
-        }
-      } catch (err) {
-        console.error('Supabase DB Exception:', err);
-      }
-    }
-
+    // ── 응답 완료 즉시 종료 (사용자 대기 시간 0) ──
     res.end();
 
-    // Vercel Serverless Function - Gemini API & Supabase 연동 완료
+    // ── Supabase DB 기록 (res.end() 이후 백그라운드 저장) ──
+    // Vercel은 res.end() 이후에도 함수가 즉시 죽지 않고 약간의 여유가 있으므로
+    // await 없이 fire-and-forget으로 처리하여 사용자 체감 속도를 극대화합니다.
+    if (supabase && userPromptText) {
+      supabase.from('chat_logs').insert([{
+        user_message: userPromptText,
+        bot_response: fullAiResponse || null,
+        created_at: new Date().toISOString()
+      }]).then(({ error: dbErr }) => {
+        if (dbErr) console.error('Supabase Insert Error:', dbErr.message);
+      }).catch(err => console.error('Supabase Exception:', err));
+    }
+
   } catch (error) {
-    console.error('Vercel API Serverless Error:', error);
+    console.error('Serverless Error:', error);
     if (!res.headersSent) {
       return res.status(500).json({ error: error.message || 'Internal Server Error' });
     } else {

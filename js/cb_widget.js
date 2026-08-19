@@ -142,11 +142,16 @@
     const iframeContainer = document.createElement('div');
     iframeContainer.id = 'cpai-iframe-container';
     
-    const iframe = document.createElement('iframe');
-    iframe.id = 'cpai-iframe';
-    iframe.src = iframeUrl;
-    iframe.allow = "microphone;";
-    iframeContainer.appendChild(iframe);
+    // iframe은 버튼 클릭 시 최초 1회만 로드 (페이지 초기 로딩 속도 최적화)
+    let iframe = null;
+    let iframeLoaded = false;
+
+    // Vercel API 서버 사전 연결 (DNS + TLS 미리 수행 → 첫 응답 체감 속도↑)
+    const preconnect = document.createElement('link');
+    preconnect.rel = 'preconnect';
+    preconnect.href = 'https://mandori.vercel.app';
+    preconnect.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnect);
 
     // 플로팅 버튼
     const button = document.createElement('button');
@@ -174,6 +179,18 @@
     });
 
     function openChatbot() {
+        // 최초 클릭 시에만 iframe 생성 (Lazy Load)
+        if (!iframeLoaded) {
+            iframe = document.createElement('iframe');
+            iframe.id = 'cpai-iframe';
+            iframe.src = iframeUrl;
+            iframe.allow = 'microphone;';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframeContainer.appendChild(iframe);
+            iframeLoaded = true;
+        }
         iframeContainer.classList.add('active');
         widgetContainer.classList.add('is-open');
     }
