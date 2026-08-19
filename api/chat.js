@@ -9,10 +9,10 @@ const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // ── 지능 & 속도 최적화 모델 후보 ──
 const SPEED_PRIORITY_MODELS = [
-  'gemini-3.5-flash-lite',
-  'gemini-2.5-flash-lite',
-  'gemini-2.5-flash',
-  'gemini-3.5-flash'
+  'gemini-3.5-flash',       // 1순위: 3.5 표준 Flash
+  'gemini-3.5-flash-lite',  // 2순위: 최신 3.5 초경량 (똑똑하고 초고속)
+  'gemini-2.5-flash-lite',  // 3순위: 2.5 초경량 (극초고속 백업)
+  'gemini-2.5-flash'        // 4순위: 2.5 표준 Flash
 ];
 
 module.exports = async function handler(req, res) {
