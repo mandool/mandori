@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 export default defineConfig({
     plugins: [react()],
-    base: '/mandori/',
+    base: process.env.VERCEL ? '/' : '/mandori/',
     build: {
         rollupOptions: {
             input: {
