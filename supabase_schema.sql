@@ -17,6 +17,10 @@ CREATE INDEX IF NOT EXISTS idx_chat_logs_created_at ON public.chat_logs (created
 -- 3. Row Level Security (RLS) 설정
 ALTER TABLE public.chat_logs ENABLE ROW LEVEL SECURITY;
 
+-- 기존 정책이 있을 경우 삭제 후 재생성 (재실행 에러 방지)
+DROP POLICY IF EXISTS "Allow serverless insert" ON public.chat_logs;
+DROP POLICY IF EXISTS "Allow select for authenticated" ON public.chat_logs;
+
 -- 백엔드(Serverless Function)에서 anon/service_role 키를 통한 INSERT 허용 정책
 CREATE POLICY "Allow serverless insert" 
 ON public.chat_logs 

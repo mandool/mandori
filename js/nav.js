@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (navList.classList.contains('active')) {
                     navList.classList.remove('active');
                     navBtn.classList.remove('active');
-                    navBtn.src = "/mandori/menu-01.svg";
+                    navBtn.src = "/menu-01.svg";
                 }
             });
         });
