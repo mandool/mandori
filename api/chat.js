@@ -151,6 +151,7 @@ module.exports = async function handler(req, res) {
 
     res.end();
 
+    // Vercel Serverless Function - Gemini API & Supabase 연동 완료
   } catch (error) {
     console.error('Vercel API Serverless Error:', error);
     if (!res.headersSent) {
