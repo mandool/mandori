@@ -178,8 +178,10 @@ async function sendMessage(text) {
     let fullText = '';
 
     try {
-        // Vercel Serverless 엔드포인트 (상대 경로로 호스팅 환경에 자동 맞춤)
-        const url = `/api/chat`;
+        // 호스팅 환경 자동 감지: Vercel이면 상대경로, GitHub Pages 등 외부이면 Vercel 전체 주소 사용
+        const isVercel = window.location.hostname.includes('vercel.app');
+        const VERCEL_API_URL = 'https://mandori.vercel.app/api/chat';
+        const url = isVercel ? '/api/chat' : VERCEL_API_URL;
         const sysPrompt = systemPrompt || DEFAULT_SYSTEM_PROMPT;
 
         const response = await fetch(url, {
