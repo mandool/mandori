@@ -52,12 +52,10 @@ module.exports = async function handler(req, res) {
       payload.systemInstruction = systemInstruction;
     }
 
-    // Google Gemini API v1beta 호환 모델 후보 (최신 1.5-flash 최우선)
+    // Google Gemini API v1beta 호환 최신 모델 후보 (2026년 기준)
     const MODEL_CANDIDATES = [
-      'gemini-1.5-flash',
-      'gemini-2.0-flash',
-      'gemini-1.5-flash-8b',
-      'gemini-1.5-pro'
+      'gemini-3.6-flash',
+      'gemini-3.1-pro'
     ];
 
     let geminiRes = null;
