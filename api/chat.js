@@ -89,8 +89,11 @@ module.exports = async function handler(req, res) {
     }
 
     if (!geminiRes) {
-      console.error('All Gemini API Model Candidates failed:', lastErrText);
-      return res.status(500).json({ error: `Gemini API Error: ${lastErrText}` });
+      const maskedKey = cleanApiKey ? `${cleanApiKey.slice(0, 6)}...${cleanApiKey.slice(-4)}` : 'MISSING';
+      console.error(`All Gemini Models Failed. Key: ${maskedKey}. Last Error:`, lastErrText);
+      return res.status(500).json({ 
+        error: `Gemini API Key [${maskedKey}] Auth/Model Error. Google API response: ${lastErrText}` 
+      });
     }
 
     // SSE 스트리밍 응답 헤더 설정
