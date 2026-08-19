@@ -61,7 +61,7 @@ module.exports = async function handler(req, res) {
     ];
 
     let geminiRes = null;
-    let lastErrText = '';
+    let fallbackErrors = [];
     const cleanApiKey = GEMINI_API_KEY.trim();
 
     for (const model of MODEL_CANDIDATES) {
@@ -77,22 +77,24 @@ module.exports = async function handler(req, res) {
           geminiRes = response;
           break;
         } else {
-          lastErrText = await response.text();
-          console.warn(`Gemini Model [${model}] failed (${response.status}):`, lastErrText);
+          const errText = await response.text();
+          fallbackErrors.push(`[${model}]: ${response.status} - ${errText}`);
+          console.warn(`Gemini Model [${model}] failed (${response.status}):`, errText);
           if (response.status === 429) {
             return res.status(429).json({ error: 'RATE_LIMIT_EXCEEDED' });
           }
         }
       } catch (e) {
-        lastErrText = e.message;
+        fallbackErrors.push(`[${model}]: Exception - ${e.message}`);
       }
     }
 
     if (!geminiRes) {
       const maskedKey = cleanApiKey ? `${cleanApiKey.slice(0, 6)}...${cleanApiKey.slice(-4)}` : 'MISSING';
-      console.error(`All Gemini Models Failed. Key: ${maskedKey}. Last Error:`, lastErrText);
+      const allErrorsStr = fallbackErrors.join(' | ');
+      console.error(`All Gemini Models Failed. Key: ${maskedKey}. Details:`, allErrorsStr);
       return res.status(500).json({ 
-        error: `Gemini API Key [${maskedKey}] Auth/Model Error. Google API response: ${lastErrText}` 
+        error: `Gemini API Auth/Model Error (Key: ${maskedKey}). Failed attempts: ${allErrorsStr}` 
       });
     }
 
