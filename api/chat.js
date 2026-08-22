@@ -7,11 +7,12 @@ const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supaba
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-// ── 지능 & 속도 최적화 모델 후보 ──
+// ── 지능 & 속도 최적화 모델 후보 (사용자 지정 순서) ──
 const SPEED_PRIORITY_MODELS = [
-  'gemini-3.5-flash-lite',  // 1순위: 초고속 지능형 Flash-Lite (초고속 응답)
-  'gemini-3.5-flash',       // 2순위: 3.5 표준 Flash 백업
-  'gemini-3.6-flash'        // 3순위: 3.6 Flash 백업
+  'gemini-3.5-flash',       // 1순위: 3.5 표준 Flash
+  'gemini-3.5-flash-lite',  // 2순위: 3.5 초경량 (초고속 650ms)
+  'gemini-2.5-flash',       // 3순위: 2.5 표준 Flash 백업
+  'gemini-2.5-flash-lite'   // 4순위: 2.5 초경량 Flash-Lite 백업
 ];
 
 module.exports = async function handler(req, res) {
