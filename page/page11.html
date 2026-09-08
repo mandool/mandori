@@ -109,26 +109,6 @@
         </div>
     </footer>
 
-
-    <script>
-        const navBtn = document.querySelector('.menu-btn')
-        const navList = document.querySelector('.nav-list')
-
-        navBtn.addEventListener("click", function () {
-            navList.classList.toggle("active");
-            navBtn.classList.toggle("active");
-
-            if (navList.classList.contains("active")) {
-                // 메뉴가 열렸으면 -> 닫기 아이콘으로 변경
-                navBtn.src = "/menu-x-01.svg";
-            } else {
-                // 메뉴가 닫혔으면 -> 햄버거 아이콘으로 복구
-                navBtn.src = "/menu-01.svg";
-            }
-        })
-
-    </script>
-
     <script src="/lottie.min.js"></script>
     <script src="/custom_wp11.js"></script>
 
