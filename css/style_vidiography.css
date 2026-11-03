@@ -124,6 +124,8 @@ nav.scrolled {
     display: none;
     width: 21px;
     height: 25px;
+    cursor: pointer;
+    z-index: 1001;
 }
 
 

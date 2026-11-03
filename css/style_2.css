@@ -138,6 +138,8 @@ nav.scrolled {
     display: none;
     width: 21px;
     height: 25px;
+    cursor: pointer;
+    z-index: 1001;
 }
 
 #project .container {
@@ -267,7 +269,7 @@ footer .container p {
 }
 
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 768px) {
 
     body {
         width: 100vw;
@@ -292,7 +294,7 @@ footer .container p {
 
     .menu-btn {
         display: block;
-        z-index: 11;
+        z-index: 1001;
         /* Ensure it's above the nav-list */
     }
 
@@ -307,7 +309,7 @@ footer .container p {
         height: 100vh;
         padding-top: 80px;
         transition: all 0.3s ease;
-        z-index: 11;
+        z-index: 1000;
         /* Ensure it's above the nav-list */
 
     }
