@@ -91,6 +91,7 @@ function Scene({ interactionEnabled }) {
 }
 
 import LoadingScreen from './LoadingScreen';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
     const [interactionEnabled, setInteractionEnabled] = React.useState(true);
@@ -188,6 +189,7 @@ export default function App() {
             >
                 <Scene interactionEnabled={interactionEnabled} />
             </Canvas>
+            <Analytics />
         </>
     );
 }
